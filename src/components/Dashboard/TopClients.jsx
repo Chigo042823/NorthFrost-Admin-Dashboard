@@ -1,5 +1,4 @@
 export const TopClients = ({data}) => {
-    let inc = 1;
     return (
         <div className="w-[calc(100%-16px)] overflow-auto my-2 mx-auto rounded-lg shadow">
             <table className="text-sm text-left table-auto border-collapse p-2 w-full">
@@ -12,10 +11,11 @@ export const TopClients = ({data}) => {
                 </thead>
                 <tbody>
                     {
-                        data.map((row) => {
+                        data.map((row, i) => {
                             return (
-                                <tr className="even: bg-gray-50 odd:bg-white hover:bg-gray-200 transition duration-100 ease-in-out">
-                                    <td className="px-2 py-4">{inc++}</td>
+                                <tr className="even: bg-gray-50 odd:bg-white hover:bg-gray-200 transition duration-100 ease-in-out"
+                                    key={i}>
+                                    <td className="px-2 py-4">{i + 1}</td>
                                     <td className="px-4 py-4">{row.client}</td>
                                     <td className="px-4 py-4">{row.amtReceived}</td>
                                 </tr>

@@ -1,10 +1,10 @@
 import React from 'react'
 import { MainContainer } from '../MainContainer'
 
-export const Orders = () => {
+export const Clients = () => {
   return (
-    <MainContainer title={"Orders"}>
-
+    <MainContainer title={"Clients"}>
+        <div className='h-[10vh]'></div>
     </MainContainer>
   )
 }

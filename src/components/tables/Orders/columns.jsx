@@ -7,24 +7,15 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu"
 
-const options = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
-
-
 export const columns = ({setModalVisible, setModalData}) => { return [
     {
-        accessorKey: "client",
+        accessorKey: "name",
         header: "Client",
         cell: ({ row }) => {
-            const client = row.getValue("client");
+            const client = row.getValue("name");
             const location = row.getValue("location");
 
             return (
@@ -40,13 +31,12 @@ export const columns = ({setModalVisible, setModalData}) => { return [
     {
         accessorKey: "location",
         header: "Location"
-
     },
     {
-        accessorKey: "order",
-        header: "Order",
+        accessorKey: "order_qty",
+        header: "Order Qty.",
         cell: ({ row }) => {
-            const order = parseFloat(row.getValue("order"));
+            const order = parseFloat(row.getValue("order_qty"));
 
             const amount = parseFloat(row.getValue("amount"));
             const fmt = new Intl.NumberFormat("en-PH", {
@@ -93,7 +83,7 @@ export const columns = ({setModalVisible, setModalData}) => { return [
             )
         },
         cell: ({ row }) => {
-            const date = row.original.date;
+            const date = new Date(row.original.date);
             return(date.toLocaleDateString("en-US"))
         }
     },
@@ -119,7 +109,6 @@ export const columns = ({setModalVisible, setModalData}) => { return [
                         setModalData(row.original);
                         setModalVisible(true)
                         }}>View Order Details</DropdownMenuItem>
-                    <DropdownMenuItem>View Customer Details</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         )

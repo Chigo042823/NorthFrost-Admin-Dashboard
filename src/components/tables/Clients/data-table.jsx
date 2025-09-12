@@ -18,15 +18,19 @@ import {
 import { Input } from "../../ui/input";
 
 import { useEffect, useState } from "react";
-import { columns } from "../../tables/Orders/columns"
+import { columns } from "./columns"
 
-import { OrderModal } from "../../Modals/orderModal";
+import { ClientModal } from "../../Modals/ClientModal";
 
 export function DataTable() {
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([])
 
-    useEffect(() => {fetch("http://127.0.0.1:8000/orders")
+    if (data.len == 0) {
+        return <p>Loading...</p>
+    }
+
+    useEffect(() => {fetch("http://127.0.0.1:8000/clients")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Error fetching orders")
@@ -49,20 +53,16 @@ export function DataTable() {
 
     const [sorting, setSorting] = useState([
         {
-            id: "date",
+            id: "pendingOrders",
             desc: true
-        }
+        },
     ]);
 
     const [globalFilter, setGlobalFilter] = useState([]);
 
     const [columnVisibility, setColumnVisibility] = useState({
-        location: false,
+        id: false,
     });
-
-    if (data.len == 0) {
-        return <p>Loading...</p>
-    }
 
     const table = useReactTable({
         data,
@@ -84,7 +84,7 @@ export function DataTable() {
 
     return (
         <>
-            {isModalVisible && <OrderModal data={modalData} visibleHandle={setModalVisible}/> }
+            {isModalVisible && <ClientModal data={modalData} visibleHandle={setModalVisible}/> }
             <div className="flex items-center py-2 justify-between">
                 <Input
                     value={globalFilter}

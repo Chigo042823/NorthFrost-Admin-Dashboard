@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import { MainContainer } from '../MainContainer'
 import { DataTable } from "../../tables/Orders/data-table"
-import { columns } from "../../tables/Orders/columns"
 import { StatsCard, StatsCardSection } from "../../ui/StatsCard"
 
 import { HiOutlineExclamation } from "react-icons/hi";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { BsBoxSeam } from 'react-icons/bs';
-
-import { OrderModal } from '../../Modals/Orders/orderModal'
 
 const data = [
   {

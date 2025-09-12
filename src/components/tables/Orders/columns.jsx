@@ -115,11 +115,6 @@ export const columns = ({setModalVisible, setModalData}) => { return [
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    {/* <DropdownMenuItem
-                    onClick={() => navigator.clipboard.writeText(payment.id)}
-                    >
-                    Copy payment ID
-                    </DropdownMenuItem> */}
                     <DropdownMenuItem onClick={() => {
                         setModalData(row.original);
                         setModalVisible(true)
@@ -129,6 +124,6 @@ export const columns = ({setModalVisible, setModalData}) => { return [
             </DropdownMenu>
         )
         },
-  },
+  },    
 ]
 }

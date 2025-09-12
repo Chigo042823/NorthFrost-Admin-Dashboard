@@ -63,11 +63,8 @@ const data = [
 
 
 export const Orders = () => {
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [modalData, setModalData] = useState({});
   let pending = data.filter(v => v.status.toLowerCase() === "pending").length;
   let unpaid = data.filter(v => v.status.toLowerCase() === "unpaid").length;
-  console.log(isModalVisible);
 
   return (
     <MainContainer title={"Orders"}>
@@ -76,9 +73,8 @@ export const Orders = () => {
         <StatsCard title={"Unpaid Orders"} color={"red"} value={unpaid} lastValue={1} Icon={HiOutlineExclamation}/>
         <StatsCard title={"Total Orders"} color={"indigo"} value={data.length} lastValue={1} Icon={BsBoxSeam}/>
       </StatsCardSection>
-      {isModalVisible && <OrderModal data={modalData} visibleHandle={setModalVisible}/> }
       <div className='container mx-auto px-4 py-2 shadow rounded-lg'>
-        <DataTable data={data} columns={columns({setModalVisible, setModalData})}/>
+        <DataTable data={data}/>
       </div>
     </MainContainer>
   )

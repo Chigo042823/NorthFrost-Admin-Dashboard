@@ -18,12 +18,22 @@ import {
 import { Input } from "../../ui/input";
 
 import { useState } from "react";
+import { columns } from "../../tables/Orders/columns"
+
+import { OrderModal } from "../../Modals/Orders/orderModal";
 
 export function DataTable({
     data,
-    columns,
     buttonClick
 }) {
+
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [modalData, setModalData] = useState({});
+
+    const cols = columns({setModalVisible, setModalData});
+
+    console.log(cols)
+
     const [sorting, setSorting] = useState([
         {
             id: "date",
@@ -39,7 +49,7 @@ export function DataTable({
 
     const table = useReactTable({
         data,
-        columns,
+        columns: cols,
         getCoreRowModel: getCoreRowModel(),
         debugAll: true,
         getSortedRowModel: getSortedRowModel(),
@@ -57,6 +67,7 @@ export function DataTable({
 
     return (
         <>
+            {isModalVisible && <OrderModal data={modalData} visibleHandle={setModalVisible}/> }
             <div className="flex items-center py-2 justify-between">
                 <Input
                     value={globalFilter}
@@ -66,7 +77,7 @@ export function DataTable({
                     />
                     <button className="bg-indigo-500 p-2 rounded-lg text-gray-50
                         hover:transform-[scale(1.05)] hover:bg-indigo-600 hover:text-indigo-100 transition-all ease-in-out"
-                        onClick={buttonClick}
+                        onClick={() => setModalVisible(true)}
                         >
                         Add Order
                     </button>

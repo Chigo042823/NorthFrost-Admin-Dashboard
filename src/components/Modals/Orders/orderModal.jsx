@@ -71,7 +71,7 @@ const Modal = ({data, visibleHandle}) => {
                         </label>
                         <input
                         type="date"
-                        defaultValue={data.date.toISOString().split("T")[0]}
+                        defaultValue={data.date ? data.date.toISOString().split("T")[0] : null}
                         className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                         />
                     </div>
@@ -101,6 +101,7 @@ const Modal = ({data, visibleHandle}) => {
                     <button
                         type="submit"
                         className="px-4 py-2 rounded-md bg-emerald-500 text-white hover:bg-emerald-600"
+                        onClick={() => visibleHandle(false)}
                     >
                         Save Changes
                     </button>

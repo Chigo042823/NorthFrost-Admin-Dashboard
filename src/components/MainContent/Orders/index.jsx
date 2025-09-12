@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MainContainer } from '../MainContainer'
 import { DataTable } from "../../tables/Orders/data-table"
 import { columns } from "../../tables/Orders/columns"
@@ -63,9 +63,11 @@ const data = [
 
 
 export const Orders = () => {
-  let modalVisible = true;
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [modalData, setModalData] = useState({});
   let pending = data.filter(v => v.status.toLowerCase() === "pending").length;
   let unpaid = data.filter(v => v.status.toLowerCase() === "unpaid").length;
+  console.log(isModalVisible);
 
   return (
     <MainContainer title={"Orders"}>
@@ -74,9 +76,9 @@ export const Orders = () => {
         <StatsCard title={"Unpaid Orders"} color={"red"} value={unpaid} lastValue={1} Icon={HiOutlineExclamation}/>
         <StatsCard title={"Total Orders"} color={"indigo"} value={data.length} lastValue={1} Icon={BsBoxSeam}/>
       </StatsCardSection>
-      {modalVisible && <OrderModal /> }
+      {isModalVisible && <OrderModal data={modalData} visibleHandle={setModalVisible}/> }
       <div className='container mx-auto px-4 py-2 shadow rounded-lg'>
-        <DataTable data={data} columns={columns}/>
+        <DataTable data={data} columns={columns({setModalVisible, setModalData})}/>
       </div>
     </MainContainer>
   )

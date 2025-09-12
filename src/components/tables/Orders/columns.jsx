@@ -19,7 +19,7 @@ const options = {
 };
 
 
-export const columns = [
+export const columns = ({setModalVisible, setModalData}) => { return [
     {
         accessorKey: "client",
         header: "Client",
@@ -104,7 +104,6 @@ export const columns = [
     {
         id: "actions",  
         cell: ({ row }) => {
-        const payment = row.original
     
         return (
             <DropdownMenu>
@@ -121,11 +120,15 @@ export const columns = [
                     >
                     Copy payment ID
                     </DropdownMenuItem> */}
-                    <DropdownMenuItem>View customer</DropdownMenuItem>
-                    <DropdownMenuItem>View payment details</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => {
+                        setModalData(row.original);
+                        setModalVisible(true)
+                        }}>View Order Details</DropdownMenuItem>
+                    <DropdownMenuItem>View Customer Details</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         )
         },
   },
 ]
+}

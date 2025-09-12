@@ -10,7 +10,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
 
 export const Home = () => {
@@ -21,7 +20,7 @@ export const Home = () => {
           <MobileNavBar />
 
           <Routes>
-            <Route index element={<Dashboard />} />
+            <Route index path="/" element={<Dashboard />} />
             <Route path = "/finances" element={<Finances />} />
             <Route path = "/orders" element={<Orders />} />
             <Route path = "/Inventory" element={<Inventory />} />

@@ -9,8 +9,8 @@ export const Dashboard = () => {
   return (
     <MainContainer title={"Dashboard"}>
         <StatsCardSection>
-          <StatsCard title={"Total Earnings"} color={"green"} value={1250} lastValue={568} Icon={GiReceiveMoney} isCurrency={true} href={"Finance"}/>
-          <StatsCard title={"Total Spendings"} color={"red"} value={760} lastValue={800} Icon={GiPayMoney} isCurrency={true} href={"Finance"} />
+          <StatsCard title={"Total Earnings"} color={"green"} value={1250} lastValue={568} Icon={GiReceiveMoney} isCurrency={true} href={"Finances"}/>
+          <StatsCard title={"Total Spendings"} color={"red"} value={760} lastValue={800} Icon={GiPayMoney} isCurrency={true} href={"Finances"} />
           <StatsCard title={"Pending Orders"} color={"orange"} value={10} lastValue={15} Icon={FaClockRotateLeft} href={"Orders"}/>
         </StatsCardSection>
         <Widgets />

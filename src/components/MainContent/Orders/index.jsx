@@ -2,12 +2,13 @@ import React from 'react'
 import { MainContainer } from '../MainContainer'
 import { DataTable } from "../../tables/Orders/data-table"
 import { columns } from "../../tables/Orders/columns"
-import { Modal } from '../../ui/modal'
 import { StatsCard, StatsCardSection } from "../../ui/StatsCard"
 
 import { HiOutlineExclamation } from "react-icons/hi";
 import { FaClockRotateLeft } from "react-icons/fa6";
-import { BsBoxSeam } from 'react-icons/bs'
+import { BsBoxSeam } from 'react-icons/bs';
+
+import { OrderModal } from '../../Modals/Orders/orderModal'
 
 const data = [
   {
@@ -60,8 +61,9 @@ const data = [
   }
 ];
 
+
 export const Orders = () => {
-  let modalVisible = false;
+  let modalVisible = true;
   let pending = data.filter(v => v.status.toLowerCase() === "pending").length;
   let unpaid = data.filter(v => v.status.toLowerCase() === "unpaid").length;
 
@@ -72,7 +74,7 @@ export const Orders = () => {
         <StatsCard title={"Unpaid Orders"} color={"red"} value={unpaid} lastValue={1} Icon={HiOutlineExclamation}/>
         <StatsCard title={"Total Orders"} color={"indigo"} value={data.length} lastValue={1} Icon={BsBoxSeam}/>
       </StatsCardSection>
-      {modalVisible && <Modal /> }
+      {modalVisible && <OrderModal /> }
       <div className='container mx-auto px-4 py-2 shadow rounded-lg'>
         <DataTable data={data} columns={columns}/>
       </div>

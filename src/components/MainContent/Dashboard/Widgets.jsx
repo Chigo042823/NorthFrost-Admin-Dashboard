@@ -2,58 +2,57 @@ import { RevenueGraph } from "./RevenueGraph"
 import { TopClients } from "./TopClients"
 import { RecentOrders } from "./RecentOrders"
 
-const clients = [
-    {
-        client: "Chilluxe",
-        amtReceived: 2450
-    },
-    {
-        client: "Gen Luna",
-        amtReceived: 2000
-    },
-    {
-        client: "Fernandos",
-        amtReceived: 1970
-    },
-]
-
 const orders = [
-    {
-        client: "Chilluxe",
-        location: "Centro",
-        order: 25,
-        amount: 180,
-        status: "Pending"
-    }, 
-    {
-        client: "Asaricha",
-        location: "Centro",
-        order: 100,
-        amount: 1020,
-        status: "Pending"
-    }, 
-    {
-        client: "Fernandos",
-        location: "Centro",
-        order: 25,
-        amount: 180,
-        status: "Delivered"
-    }, 
-    {
-        client: "Urban Wave",
-        location: "Centro",
-        order: 50,
-        amount: 360,
-        status: "Out for Delivery"
-    }, 
-    {
-        client: "Chilluxe",
-        location: "Centro",
-        order: 25,
-        amount: 180,
-        status: "Paid"
-    }, 
-]
+  {
+    client: "Chilluxe",
+    location: "Centro",
+    order: 25,
+    amount: 540,
+    date: new Date("01/28/2025", ),
+    status: "Pending",
+  },
+  {
+    client: "Chilluxe",
+    location: "Centro",
+    order: 25,
+    amount: 540,
+    date: new Date("01/30/2025", ),
+    status: "Pending",
+  },
+  {
+    client: "Fernando's",
+    location: "Vintar",
+    order: 10,
+    amount: 180,
+    date: new Date("02/06/2025"),
+    status: "Delivered",
+  },
+  {
+    client: "Asaricha",
+    location: "Home",
+    order: 100,
+    amount: 640,
+    date: new Date("04/06/2025"),
+    status: "Unpaid",
+  },
+  {
+    client: "Asaricha",
+    location: "Home",
+    order: 100,
+    amount: 640,
+    date: new Date("20/05/2025"),
+    status: "Paid",
+  },
+  {
+    client: "General Luna",
+    location: "Rizal st.",
+    order: 25,
+    amount: 200,
+    date: new Date("05/30/2025"),
+    status: "Awaiting Approval",
+  }
+];
+
 
 export const Widgets = () => {
   return (
@@ -63,9 +62,6 @@ export const Widgets = () => {
         </Card>
         <Card span={2} title={"Sales Overview"} href={"Finances"}>
             <RevenueGraph />
-        </Card>
-        <Card span={1} title={"Top Clients"} href={"Clients"}>
-            <TopClients data={clients}/>
         </Card>
     </div>
   )

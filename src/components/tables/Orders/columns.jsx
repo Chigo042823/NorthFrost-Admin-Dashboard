@@ -116,12 +116,11 @@ export const columns = [
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem
+                    {/* <DropdownMenuItem
                     onClick={() => navigator.clipboard.writeText(payment.id)}
                     >
                     Copy payment ID
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
+                    </DropdownMenuItem> */}
                     <DropdownMenuItem>View customer</DropdownMenuItem>
                     <DropdownMenuItem>View payment details</DropdownMenuItem>
                 </DropdownMenuContent>

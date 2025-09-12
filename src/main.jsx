@@ -5,7 +5,7 @@ import { Home } from './pages/Home'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <div className='bg-stone-100 text-stone-900 w-full p-2'>
+    <div className='bg-stone-100 text-stone-900 w-full'>
       <Home />
     </div>
   </StrictMode>,

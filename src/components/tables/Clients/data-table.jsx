@@ -109,7 +109,7 @@ export function DataTable() {
                             setFormVisible(true);
                         }}
                         >
-                        Add Order
+                        Add Client
                     </button>
             </div>
             <Table>

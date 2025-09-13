@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu"
 
-export const columns = ({setModalVisible, setModalData}) => { return [
+export const columns = ({setFormVisible, setConfirmDeleteVisible, setFormData, setIsInsert}) => { return [
     {
         accessorKey: "name",
         header: "Client",
@@ -106,9 +106,18 @@ export const columns = ({setModalVisible, setModalData}) => { return [
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem onClick={() => {
-                        setModalData(row.original);
-                        setModalVisible(true)
-                        }}>View Order Details</DropdownMenuItem>
+                        setIsInsert(false);
+                        setFormData(row.original)
+                        setFormVisible(true);
+                        }}>
+                            View Order Details
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => {
+                            setFormData(row.original);
+                            setConfirmDeleteVisible(true);
+                            }}>
+                            Delete Order
+                        </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         )

@@ -11,7 +11,10 @@ import {
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu"
 
-export const columns = ({setModalVisible, setModalData}) => { return [
+import { deleteClient } from "../../../../api/clients"
+import { useEffect } from "react"
+
+export const columns = ({setFormVisible, setFormData, setIsInsert, setConfirmDeleteVisible}) => { return [
     {
         accessorKey: "id",
         header: "Id",
@@ -109,9 +112,16 @@ export const columns = ({setModalVisible, setModalData}) => { return [
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem onClick={() => {
-                        setModalData(row.original);
-                        setModalVisible(true)
-                        }}>View Customer Details</DropdownMenuItem>
+                        setFormData(row.original);
+                        setFormVisible(true);
+                        setIsInsert(false);
+                        }}>View Client Details</DropdownMenuItem>
+                        <DropdownMenuItem onClick={async () => {
+                            setConfirmDeleteVisible(true);
+                            setFormData(row.original);
+                        }}>
+                            Delete Client
+                        </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         )

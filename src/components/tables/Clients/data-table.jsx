@@ -5,6 +5,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
  
 import {
   Table,
@@ -20,36 +22,18 @@ import { Input } from "../../ui/input";
 import { useEffect, useState } from "react";
 import { columns } from "./columns"
 
-import { ClientModal } from "../../Modals/ClientModal";
+import { Modal } from "../../Modals/modal";
+import { ClientForm } from "../../Modals/clientForm";
+import { ConfirmDeleteModal } from "../../Modals/confirmDeleteModal";
+import { getClients } from "../../../../api/clients";
 
 export function DataTable() {
+    const [isInsert, setIsInsert] = useState(false);
 
-    const [data, setData] = useState([])
+    const [isFormVisible, setFormVisible] = useState(false);
+    const [formData, setFormData] = useState({});
 
-    if (data.len == 0) {
-        return <p>Loading...</p>
-    }
-
-    useEffect(() => {fetch("http://127.0.0.1:8000/clients")
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Error fetching orders")
-            } 
-            return response.json()
-        })
-        .then((data) => {
-            console.log(data)
-            setData(data)
-        })
-        .catch((error) => {
-            console.error("Error fetching orders: ", error)
-        });
-        }, []);
-
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [modalData, setModalData] = useState({});
-
-    const cols = columns({setModalVisible, setModalData});
+    const [isConfirmDeleteVisible, setConfirmDeleteVisible] = useState(false);
 
     const [sorting, setSorting] = useState([
         {
@@ -58,14 +42,23 @@ export function DataTable() {
         },
     ]);
 
+    const { data: clients = [], isLoading } = useQuery({
+        queryKey: ["clients"],
+        queryFn: getClients
+    })
+
     const [globalFilter, setGlobalFilter] = useState([]);
 
     const [columnVisibility, setColumnVisibility] = useState({
         id: false,
     });
 
+    const qclient = useQueryClient();
+
+    const cols = columns({setFormVisible, setFormData, setIsInsert, setConfirmDeleteVisible});
+
     const table = useReactTable({
-        data,
+        data: clients,
         columns: cols,
         getCoreRowModel: getCoreRowModel(),
         // debugAll: true,
@@ -82,11 +75,28 @@ export function DataTable() {
         }
     });
 
+    function handleSuccess() {
+        qclient.invalidateQueries(["clients"]);
+    }
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }   
+
     return (
         <>
-            {isModalVisible && <ClientModal data={modalData} visibleHandle={setModalVisible}/> }
+            {
+                isFormVisible && 
+                    <Modal title={"Client"} setFormVisible={setFormVisible}>
+                        <ClientForm data={formData} isInsert={isInsert} setFormVisible={setFormVisible} successHandler={handleSuccess}/>
+                    </Modal> 
+            }
+            {
+                isConfirmDeleteVisible &&
+                    <ConfirmDeleteModal successHandler={handleSuccess} data={formData} setConfirmDeleteVisible={setConfirmDeleteVisible}/>
+            }
             <div className="flex items-center py-2 justify-between">
-                <Input
+                <Input  
                     value={globalFilter}
                     onChange={e => table.setGlobalFilter(String(e.target.value))}
                     placeholder="Search..."
@@ -94,7 +104,10 @@ export function DataTable() {
                     />
                     <button className="bg-indigo-500 p-2 rounded-lg text-gray-50
                         hover:transform-[scale(1.05)] hover:bg-indigo-600 hover:text-indigo-100 transition-all ease-in-out"
-                        onClick={() => setModalVisible(true)}
+                        onClick={() => {
+                            setIsInsert(true);
+                            setFormVisible(true);
+                        }}
                         >
                         Add Order
                     </button>

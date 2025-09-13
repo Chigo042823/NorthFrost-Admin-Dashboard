@@ -17,35 +17,24 @@ import {
 
 import { Input } from "../../ui/input";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { getOrders, deleteOrder } from "../../../../api/orders";
 import { columns } from "../../tables/Orders/columns"
 
-import { OrderModal } from "../../Modals/orderModal";
+import { OrderForm } from "../../Modals/orderForm"
+import { Modal } from "../../Modals/modal";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { ConfirmDeleteModal } from "../../Modals/confirmDeleteModal";
 
 export function DataTable() {
+    const [isFormVisible, setFormVisible] = useState(false);
+    const [isInsert, setIsInsert] = useState(true);
+    const [formData, setFormData] = useState({});
 
-    const [data, setData] = useState([]);
+    const [isConfirmDeleteVisible, setConfirmDeleteVisible] = useState(false);
 
-    useEffect(() => {fetch("http://127.0.0.1:8000/orders")
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Error fetching orders")
-            } 
-            return response.json()
-        })
-        .then((data) => {
-            console.log(data)
-            setData(data)
-        })
-        .catch((error) => {
-            console.error("Error fetching orders: ", error)
-        });
-        }, []);
-
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [modalData, setModalData] = useState({});
-
-    const cols = columns({setModalVisible, setModalData});
+    const cols = columns({setFormVisible, setConfirmDeleteVisible, setFormData, setIsInsert});
 
     const [sorting, setSorting] = useState([
         {
@@ -60,12 +49,19 @@ export function DataTable() {
         location: false,
     });
 
-    if (data.len == 0) {
-        return <p>Loading...</p>
+    const { data: orders=[], isLoading } = useQuery({
+        queryKey: ["orders"],
+        queryFn: getOrders
+    });
+
+    const qclient = useQueryClient();
+
+    function handleSuccess() {
+        qclient.invalidateQueries(["orders"]);
     }
 
     const table = useReactTable({
-        data,
+        data: orders,
         columns: cols,
         getCoreRowModel: getCoreRowModel(),
         // debugAll: true,
@@ -84,7 +80,22 @@ export function DataTable() {
 
     return (
         <>
-            {isModalVisible && <OrderModal data={modalData} visibleHandle={setModalVisible}/> }
+            {
+                isFormVisible && 
+                        <Modal title={"Order Details"} setFormVisible={setFormVisible}>
+                            <OrderForm successHandler={handleSuccess} isInsert={isInsert} data={formData} setFormVisible={setFormVisible}/>
+                        </Modal> 
+            }
+            {
+                isConfirmDeleteVisible &&
+                    <ConfirmDeleteModal 
+                        deletefn={deleteOrder} 
+                        deleteId={formData.order_id}
+                        title={"Delete Order Confirmation"} 
+                        warningString={"Are you sure you wish to delete " + formData.name + "'s order?"} 
+                        successHandler={handleSuccess} 
+                        setConfirmDeleteVisible={setConfirmDeleteVisible}/>
+            }
             <div className="flex items-center py-2 justify-between">
                 <Input
                     value={globalFilter}
@@ -94,7 +105,10 @@ export function DataTable() {
                     />
                     <button className="bg-indigo-500 p-2 rounded-lg text-gray-50
                         hover:transform-[scale(1.05)] hover:bg-indigo-600 hover:text-indigo-100 transition-all ease-in-out"
-                        onClick={() => setModalVisible(true)}
+                        onClick={() => {
+                            setIsInsert(true);
+                            setFormVisible(true);
+                        }}
                         >
                         Add Order
                     </button>

@@ -1,5 +1,7 @@
+import { apiURL } from "./env";
+
 export async function getOrders() {
-    const resp = await fetch("http://127.0.0.1:8000/orders");
+    const resp = await fetch(apiURL + "orders");
     if (!resp.ok) {
         throw new Error("Error fetching orders")
     } 
@@ -7,7 +9,7 @@ export async function getOrders() {
 }
 
 export async function getOrder(order_id) {
-    const resp = await fetch("http://127.0.0.1:8000/orders/" + order_id);
+    const resp = await fetch(apiURL + "orders/" + order_id);
     if (!resp.ok) {
         throw new Error("Error fetching orders")
     } 
@@ -15,7 +17,7 @@ export async function getOrder(order_id) {
 }
 
 export async function addOrder(data) {
-    const resp = await fetch("http://127.0.0.1:8000/orders", {
+    const resp = await fetch(apiURL + "orders", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -26,7 +28,7 @@ export async function addOrder(data) {
 }
 
 export async function updateOrder(id, data) {
-    const resp = await fetch("http://127.0.0.1:8000/orders/" + id, {
+    const resp = await fetch(apiURL + "orders/" + id, {
         method: "PATCH",
         body: JSON.stringify(data),
         headers: {
@@ -37,7 +39,7 @@ export async function updateOrder(id, data) {
 }
 
 export async function deleteOrder(id) {
-    const resp = await fetch("http://127.0.0.1:8000/orders/" + id, {
+    const resp = await fetch(apiURL + "orders/" + id, {
         method: "DELETE"
     })
     return resp.json()

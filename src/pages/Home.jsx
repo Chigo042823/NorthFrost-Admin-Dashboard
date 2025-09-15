@@ -13,7 +13,8 @@ import {
 } from "react-router-dom";
 
 export const Home = () => {
-  const isProd = import.meta.env.MODE === "production";
+  // const isProd = import.meta.env.MODE === "production";
+  const isProd = false;
   return (
     <main className="grid gap-4 grid-cols-1 md:grid-cols-[230px_1fr] h-full md:pb-0 pb-[4.5rem]">
         <Router basename={isProd ? "/NorthFrost-Admin-Dashboard/" : "/"}>

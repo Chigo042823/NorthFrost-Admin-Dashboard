@@ -27,6 +27,8 @@ import { ClientForm } from "../../Modals/clientForm";
 import { ConfirmDeleteModal } from "../../Modals/confirmDeleteModal";
 import { getClients } from "../../../../api/clients";
 
+import { deleteClient } from "../../../../api/clients";
+
 export function DataTable() {
     const [isInsert, setIsInsert] = useState(false);
 
@@ -93,7 +95,14 @@ export function DataTable() {
             }
             {
                 isConfirmDeleteVisible &&
-                    <ConfirmDeleteModal successHandler={handleSuccess} data={formData} setConfirmDeleteVisible={setConfirmDeleteVisible}/>
+                    <ConfirmDeleteModal 
+                        warningString={"Are you sure you wish to delete " + formData.name + " as a client?"} 
+                        title={"Delete Client Confirmation"} 
+                        deletefn={deleteClient}
+                        successHandler={handleSuccess} 
+                        setConfirmDeleteVisible={setConfirmDeleteVisible}
+                        deleteId={formData.client_id}    
+                    />
             }
             <div className="flex items-center py-2 justify-between">
                 <Input  

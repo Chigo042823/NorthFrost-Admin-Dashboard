@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: process.env.NODE_ENV === "production" ? "/NorthFrost-Admin-Dashboard/" : ""
+  // base: process.env.NODE_ENV === "production" ? "/NorthFrost-Admin-Dashboard/" : ""
 })

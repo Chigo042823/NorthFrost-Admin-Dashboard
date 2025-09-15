@@ -21,9 +21,9 @@ export const ConfirmDeleteModal = ({title, deletefn, setConfirmDeleteVisible, wa
                         onClick={async () => {
                             try {
                                 await deletefn(deleteId);
-                                console.log("Deleted successfully!");
                                 setConfirmDeleteVisible(false);
                                 successHandler();
+                                console.log("Deleted successfully!");
                             } catch (err) {
                                 console.error(err)
                             }  finally {

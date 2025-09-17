@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import * as path from "path"
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
@@ -8,5 +9,11 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  // base: process.env.NODE_ENV === "production" ? "/NorthFrost-Admin-Dashboard/" : ""
+  resolve: {
+        alias: [
+          { find: "@", replacement: path.resolve(__dirname, "src") },
+          // You can add more aliases here, e.g.,
+          // { find: "@components", replacement: path.resolve(__dirname, "src/components") },
+        ],
+      },
 })

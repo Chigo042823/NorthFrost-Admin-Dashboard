@@ -5,7 +5,7 @@ import { Dashboard } from "../components/MainContent/Dashboard"
 import { Finances } from "../components/MainContent/Finances"
 import { Orders } from "../components/MainContent/Orders"
 import { Inventory } from "../components/MainContent/Inventory"
-import { Clients } from "../components/MainContent/Clients"
+import { Clients } from "../features/clients"
 
 import {
   BrowserRouter as Router,

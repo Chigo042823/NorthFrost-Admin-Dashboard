@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MainContainer } from '../MainContainer'
+import { MainContainer } from '../../../shared/components/mainContainer'
 import { DataTable } from "../../tables/Orders/data-table"
 import { StatsCard, StatsCardSection } from "../../ui/StatsCard"
 
@@ -7,7 +7,7 @@ import { HiOutlineExclamation } from "react-icons/hi";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { BsBoxSeam } from 'react-icons/bs';
 import { useQuery } from '@tanstack/react-query';
-import { getOrders } from '../../../../api/orders';
+import { getOrders } from '../../../api/orders';
 
 export const Orders = () => {
   const { data, isLoading } = useQuery({

@@ -18,14 +18,14 @@ import {
 import { Input } from "../../ui/input";
 
 import { useState } from "react";
-import { getOrders, deleteOrder } from "../../../../api/orders";
+import { getOrders, deleteOrder } from "../../../api/orders";
 import { columns } from "../../tables/Orders/columns"
 
 import { OrderForm } from "../../Modals/orderForm"
-import { Modal } from "../../Modals/modal";
+import { Modal } from "@/shared/components/modal";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { ConfirmDeleteModal } from "../../Modals/confirmDeleteModal";
+import { Alert } from "@/shared/components/alert";
 
 export function DataTable() {
     const [isFormVisible, setFormVisible] = useState(false);
@@ -86,7 +86,7 @@ export function DataTable() {
                             <OrderForm successHandler={handleSuccess} isInsert={isInsert} data={formData} setFormVisible={setFormVisible}/>
                         </Modal> 
             }
-            {
+            {/* {
                 isConfirmDeleteVisible &&
                     <ConfirmDeleteModal 
                         deletefn={deleteOrder} 
@@ -95,7 +95,7 @@ export function DataTable() {
                         warningString={"Are you sure you wish to delete " + formData.name + "'s order?"} 
                         successHandler={handleSuccess} 
                         setConfirmDeleteVisible={setConfirmDeleteVisible}/>
-            }
+            } */}
             <div className="flex items-center py-2 justify-between">
                 <Input
                     value={globalFilter}

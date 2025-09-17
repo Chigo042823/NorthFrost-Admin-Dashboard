@@ -1,6 +1,6 @@
-import { ArrowUpDown, MoreHorizontal, SortAsc } from "lucide-react"
+import { MoreHorizontal } from "lucide-react"
 
-import { Button } from "../../ui/button"
+import { Button } from "../../../components/ui/button"
 
 import {
   DropdownMenu,
@@ -9,12 +9,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu"
+} from "../../../components/ui/dropdown-menu"
 
-import { deleteClient } from "../../../../api/clients"
+import { deleteClient } from "../api/clientsApi"
 import { useEffect } from "react"
+import { useModal } from "@/shared/contexts/modalContext"
 
-export const columns = ({setFormVisible, setFormData, setIsInsert, setConfirmDeleteVisible}) => { return [
+export const useClientColumns = ({onEdit, onDelete}) => { return [
     {
         accessorKey: "id",
         header: "Id",
@@ -100,31 +101,27 @@ export const columns = ({setFormVisible, setFormData, setIsInsert, setConfirmDel
     {
         id: "actions",  
         cell: ({ row }) => {
-    
-        return (
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-1 p-0">
-                        <span className="sr-only">Open menu</span>
-                        <MoreHorizontal className="h-4" />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem onClick={() => {
-                        setFormData(row.original);
-                        setFormVisible(true);
-                        setIsInsert(false);
-                        }}>View Client Details</DropdownMenuItem>
-                        <DropdownMenuItem onClick={async () => {
-                            setConfirmDeleteVisible(true);
-                            setFormData(row.original);
-                        }}>
-                            Delete Client
-                        </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
-        )
+            return (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-1 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal className="h-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuItem onClick={() => {
+                                onEdit(row.original);
+                            }}>View Client Details</DropdownMenuItem>
+                            <DropdownMenuItem onClick={async () => {
+                                onDelete(row.original);
+                            }}>
+                                Delete Client
+                            </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )
         },
   },    
 ]

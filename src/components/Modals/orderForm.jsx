@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { ModalButtons } from "./modalButtons"
 import Select from "react-select";
-import { getClients } from "../../../api/clients";
-import { addOrder, updateOrder } from "../../../api/orders";
+import { getClients } from "../../features/clients/api/clientsApi";
+import { addOrder, updateOrder } from "../../api/orders";
 
 export const OrderForm = ({successHandler, loadingState, data, setFormVisible, text, isInsert}) => {
 

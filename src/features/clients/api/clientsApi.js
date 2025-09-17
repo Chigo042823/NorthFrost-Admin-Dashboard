@@ -1,10 +1,16 @@
-import { apiURL } from "./env";
+import { apiURL } from "../../../api/env";
 
 export async function getClients() {
     const resp = await fetch(apiURL + "clients");
     if (!resp.ok) {
         throw new Error("Error fetching clients")
     } 
+    
+    if (!resp.ok) {
+        const errText = await resp.text();
+        throw new Error(`Error ${resp.status}: ${errText}`);
+    }
+
     return resp.json()
 }
 
@@ -13,6 +19,12 @@ export async function getClient(client_id) {
     if (!resp.ok) {
         throw new Error("Error fetching clients")
     } 
+    
+    if (!resp.ok) {
+        const errText = await resp.text();
+        throw new Error(`Error ${resp.status}: ${errText}`);
+    }
+
     return resp.json()
 }
 
@@ -25,10 +37,17 @@ export async function addClient(data) {
             "Content-type": "application/json; charset=UTF-8"
         }
     })
+    
+    if (!resp.ok) {
+        const errText = await resp.text();
+        throw new Error(`Error ${resp.status}: ${errText}`);
+    }
+
     return resp.json()
 }
 
-export async function updateClient(id, data) {
+export async function updateClient(data) {
+    const id = data.client_id;
     const resp = await fetch(apiURL + "clients/" + id, {
         method: "PATCH",
         body: JSON.stringify(data),
@@ -36,6 +55,12 @@ export async function updateClient(id, data) {
             "Content-type": "application/json"
         }
     })
+    
+    if (!resp.ok) {
+        const errText = await resp.text();
+        throw new Error(`Error ${resp.status}: ${errText}`);
+    }
+
     return resp.json()
 }
 
@@ -43,5 +68,11 @@ export async function deleteClient(id) {
     const resp = await fetch(apiURL + "clients/" + id, {
         method: "DELETE"
     })
+    
+    if (!resp.ok) {
+        const errText = await resp.text();
+        throw new Error(`Error ${resp.status}: ${errText}`);
+    }
+
     return resp.json()
 }

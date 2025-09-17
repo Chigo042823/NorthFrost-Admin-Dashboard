@@ -1,5 +1,4 @@
 import React from 'react'
-import { FaBell } from 'react-icons/fa'
 
 export const MainContainer = ({title, children}) => {
   return (

@@ -15,27 +15,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../ui/table"
+} from "../../../components/ui/table"
 
-import { Input } from "../../ui/input";
+import { Input } from "../../../components/ui/input";
 
-import { useEffect, useState } from "react";
-import { columns } from "./columns"
+import { useContext, useState } from "react";
+import { useClientColumns } from "../hooks/useClientColumns"
 
-import { Modal } from "../../Modals/modal";
-import { ClientForm } from "../../Modals/clientForm";
-import { ConfirmDeleteModal } from "../../Modals/confirmDeleteModal";
-import { getClients } from "../../../../api/clients";
+import ClientModal from "./clientModal";
+import DeleteClientAlert from "./deleteClientAlert";
+import { getClients } from "../api/clientsApi";
 
-import { deleteClient } from "../../../../api/clients";
+import { deleteClient } from "../api/clientsApi";
+import { useModal } from "@/shared/contexts/modalContext";
+import { useAlert } from "@/shared/contexts/alertContext";
+import { useDeleteClient } from "../api/clientQueries";
 
-export function DataTable() {
-    const [isInsert, setIsInsert] = useState(false);
-
-    const [isFormVisible, setFormVisible] = useState(false);
+export function ClientsTable() {
     const [formData, setFormData] = useState({});
-
-    const [isConfirmDeleteVisible, setConfirmDeleteVisible] = useState(false);
 
     const [sorting, setSorting] = useState([
         {
@@ -57,7 +54,22 @@ export function DataTable() {
 
     const qclient = useQueryClient();
 
-    const cols = columns({setFormVisible, setFormData, setIsInsert, setConfirmDeleteVisible});
+    const modalContext = useModal();
+    const alertContext = useAlert();
+
+    const cols = useClientColumns({
+        onEdit: (data) => {
+            setFormData(data);
+            modalContext.setCurrentModal("clientForm")
+            modalContext.setTitle("Edit Client");
+        },
+        onDelete: (data) => {
+            setFormData(data);
+            alertContext.setIsVisible(true);
+            alertContext.setTitle("Delete Client");
+            alertContext.setText("Are you sure you wish to delete " + data.name + " as your client?")
+        },
+    });
 
     const table = useReactTable({
         data: clients,
@@ -77,8 +89,16 @@ export function DataTable() {
         }
     });
 
+    const deleteClientMutation = useDeleteClient({
+        onSuccess: () => {
+            handleSuccess();
+            alertContext.setIsVisible(false);
+        }
+    })
+
     function handleSuccess() {
         qclient.invalidateQueries(["clients"]);
+        console.log("Clients updated...")
     }
 
     if (isLoading) {
@@ -87,23 +107,11 @@ export function DataTable() {
 
     return (
         <>
-            {
-                isFormVisible && 
-                    <Modal title={"Client"} setFormVisible={setFormVisible}>
-                        <ClientForm data={formData} isInsert={isInsert} setFormVisible={setFormVisible} successHandler={handleSuccess}/>
-                    </Modal> 
+            <ClientModal formData={formData} onSuccess={handleSuccess}/>
+            <DeleteClientAlert onClick={() => {
+                deleteClientMutation.mutate({id: formData.client_id})
             }
-            {
-                isConfirmDeleteVisible &&
-                    <ConfirmDeleteModal 
-                        warningString={"Are you sure you wish to delete " + formData.name + " as a client?"} 
-                        title={"Delete Client Confirmation"} 
-                        deletefn={deleteClient}
-                        successHandler={handleSuccess} 
-                        setConfirmDeleteVisible={setConfirmDeleteVisible}
-                        deleteId={formData.client_id}    
-                    />
-            }
+            }/>
             <div className="flex items-center py-2 justify-between">
                 <Input  
                     value={globalFilter}
@@ -114,8 +122,9 @@ export function DataTable() {
                     <button className="bg-indigo-500 p-2 rounded-lg text-gray-50
                         hover:transform-[scale(1.05)] hover:bg-indigo-600 hover:text-indigo-100 transition-all ease-in-out"
                         onClick={() => {
-                            setIsInsert(true);
-                            setFormVisible(true);
+                            setFormData(null);
+                            modalContext.setCurrentModal("clientForm");
+                            modalContext.setTitle("Add Client");
                         }}
                         >
                         Add Client

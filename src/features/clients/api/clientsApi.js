@@ -1,4 +1,4 @@
-import { apiURL } from "../../../api/env";
+import { apiURL } from "@/shared/utils/env";
 
 export async function getClients() {
     const resp = await fetch(apiURL + "clients");

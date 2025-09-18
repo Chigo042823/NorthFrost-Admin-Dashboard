@@ -4,15 +4,10 @@ import { MainContainer } from "@/shared/components/mainContainer"
 
 import { GiReceiveMoney, GiPayMoney } from "react-icons/gi"
 import { FaClockRotateLeft } from "react-icons/fa6"
-
-import { useQuery } from "@tanstack/react-query"
-import { getOrders } from "@/api/orders"
+import { useOrders } from "../orders/api/orderQueries"
 
 export const Dashboard = () => {
-  const { data: orders, isLoading } = useQuery({
-    queryKey: ["orders"], 
-    queryFn: getOrders
-  })
+  const { data: orders, isLoading } = useOrders();
 
   if (isLoading) {
     return <p>Loading...</p>

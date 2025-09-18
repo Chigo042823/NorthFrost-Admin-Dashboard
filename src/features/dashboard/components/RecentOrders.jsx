@@ -2,16 +2,12 @@ import { useOrderColumns } from "@/features/orders/hooks/useOrderColumns"
 import { DataTable } from "@/shared/components/DataTable"
 import { useState } from "react"
 import { useOrders } from "@/features/orders/api/orderQueries"
-import { useModal } from "@/shared/contexts/modalContext"
-import { useAlert } from "@/shared/contexts/alertContext"
 
 export const RecentOrders = ({data}) => {
 
     if (!data) {
         return <p>Loading...</p>
     }
-    
-    const alertContext = useAlert();
 
     const [sorting, setSorting] = useState([
         {

@@ -1,5 +1,5 @@
-import { apiURL } from "@/api/env";
 import { handleResponse } from "@/shared/utils/responseHandler";
+import { apiURL } from "@/shared/utils/env";
 
 export async function getOrders() {
     const resp = await fetch(apiURL + "orders");

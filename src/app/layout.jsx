@@ -2,7 +2,6 @@ import React from 'react'
 
 import { NavBar, MobileNavBar } from '@/features/navbar/NavBar';
 import { Outlet } from 'react-router-dom';
-import { ModalRoot } from '@/shared/components/ModalRoot';
 
 export const Layout = () => {
     return (

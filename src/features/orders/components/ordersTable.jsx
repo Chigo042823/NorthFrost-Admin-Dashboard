@@ -29,7 +29,7 @@ export function OrdersTable() {
     }   
 
     return (
-        <div className='container mx-auto px-4 py-2 shadow rounded-lg'>
+        <div className='container mx-auto px-4 py-2 rounded-lg'>
             <TableToolbar setGlobalFilter={setGlobalFilter} globalFilter={globalFilter} name={"order"}/>
             <DataTable 
                 data={orders} 

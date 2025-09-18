@@ -1,6 +1,6 @@
 import { MoreHorizontal } from "lucide-react"
 
-import { Button } from "../../../components/ui/button"
+import { Button } from "../../../shared/button"
 
 import {
   DropdownMenu,
@@ -9,13 +9,42 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu"
+} from "../../../shared/dropdown-menu"
 
-import { deleteClient } from "../api/clientsApi"
-import { useEffect } from "react"
+import { useDeleteClient } from "../api/clientQueries"
 import { useModal } from "@/shared/contexts/modalContext"
+import { useQueryClient } from "@tanstack/react-query"
 
-export const useClientColumns = ({onEdit, onDelete}) => { return [
+export const useClientColumns = () => { 
+    
+    const queryClient = useQueryClient();
+    const modalContext = useModal();
+
+    const deleteClientMutation = useDeleteClient({
+        onSuccess: () => {
+            queryClient.invalidateQueries(["clients"]);
+            alertContext.setIsVisible(false);
+        }
+    })
+    
+    const {onEdit, onDelete} = {
+        onEdit: (data) => {
+            modalContext.setModalData(data);
+            modalContext.setCurrentModal("clientForm")
+            modalContext.setTitle("Edit Order");
+        },
+        onDelete: (data) => {
+            modalContext.setModalData(data);
+            modalContext.setOnClick(() => 
+                deleteClientMutation.mutate({id: data.client_id})
+            );
+            modalContext.setCurrentModal("confirmDelete");
+            modalContext.setTitle("Delete Client");
+            modalContext.setText("Are you sure you wish to delete " + data.name + " as a client?")
+        },
+    };
+   
+    return [
     {
         accessorKey: "id",
         header: "Id",
@@ -92,9 +121,9 @@ export const useClientColumns = ({onEdit, onDelete}) => { return [
         cell: ({ row }) => {
             const note = row.getValue("note")
             return(
-                <>
+                <div className="text-wrap">
                     {note}
-                </>
+                </div>
                 )
         }
     },
@@ -110,7 +139,6 @@ export const useClientColumns = ({onEdit, onDelete}) => { return [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem onClick={() => {
                                 onEdit(row.original);
                             }}>View Client Details</DropdownMenuItem>

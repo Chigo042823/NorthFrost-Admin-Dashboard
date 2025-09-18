@@ -1,19 +1,16 @@
-import { Alert } from '@/shared/components/alert';
-import { useAlert } from '@/shared/contexts/alertContext';
+import { SmallModal } from '@/shared/components/modal';
+import { useModal } from '@/shared/contexts/modalContext';
+export default function DeleteOrderAlert() {
 
-export default function DeleteOrderAlert({
-  onClick
-}) {
-
-  const { setIsVisible } = useAlert();
+  const { setCurrentModal, onClick } = useModal();
   
   return (
-    <Alert name={"orderForm"} title={"Edit Order"}>
+    <SmallModal>
       <div className="flex justify-end gap-3 mt-4 absolute bottom-4 right-4">
           <button
               onClick={() => 
                 {
-                  setIsVisible(false);
+                  setCurrentModal(null)
                 }
               }
               className="px-4 py-2 rounded-md border text-stone-600 hover:bg-stone-100"
@@ -24,13 +21,15 @@ export default function DeleteOrderAlert({
               type="submit"
               className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
               // disabled={saveOrderMutation.isPending}
-              onClick={() => {
-                  onClick()
-              }}
+              onClick={() => 
+                  {
+                    onClick();
+                }
+              }
           >
               Delete Order
           </button>
         </div>
-    </Alert> 
+    </SmallModal> 
   )
 }

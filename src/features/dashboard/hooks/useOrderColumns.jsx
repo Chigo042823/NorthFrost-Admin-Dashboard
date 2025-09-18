@@ -1,6 +1,6 @@
 import { ArrowUpDown, MoreHorizontal, SortAsc } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/button"
 
 import {
   DropdownMenu,
@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/shared/dropdown-menu"
 
 export const useOrderColumns = ({onEdit, onDelete}) => { return [
     {

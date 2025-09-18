@@ -1,6 +1,6 @@
 import { getCoreRowModel, getSortedRowModel, getFilteredRowModel } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHeader, TableRow, TableHead } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHeader, TableRow, TableHead } from "@/shared/table";
 import { flexRender } from "@tanstack/react-table";
 
 export const DataTable = ({
@@ -51,7 +51,7 @@ export const DataTable = ({
                     {table.getRowModel().rows.map(row => (
                         <TableRow key={row.id}>
                             {row.getVisibleCells().map(cell => (
-                                <TableCell className={cell.id == "actions" && "w-4"} key={cell.id}>
+                                <TableCell className={`${cell.id == "actions" && "w-4"} text-wrap`} key={cell.id}>
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()

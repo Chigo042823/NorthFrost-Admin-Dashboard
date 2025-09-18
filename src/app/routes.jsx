@@ -1,10 +1,10 @@
 import { Layout } from "./layout"
 import { LoginPage } from "@/features/auth/LoginPage"
 
-import { Dashboard } from "../components/MainContent/Dashboard"
-import { Finances } from "../components/MainContent/Finances"
+import { Dashboard } from "@/features/dashboard"
+import { Finances } from "../features/Finances"
 import { Orders } from "../features/orders"
-import { Inventory } from "../components/MainContent/Inventory"
+import { Inventory } from "../features/Inventory"
 import { Clients } from "../features/clients"
 
 import {

@@ -1,9 +1,15 @@
 import { useModal } from "@/shared/contexts/modalContext";
 import { useSaveClient } from "../api/clientQueries";
+import { useQueryClient } from "@tanstack/react-query";
 
-export const ClientForm = ({data, onSuccess}) => {
+export const ClientForm = ({data}) => {
+    const queryClient = useQueryClient();
     const modalCtx = useModal();
     let isInsert = !data;
+
+    function onSuccess() {
+        queryClient.invalidateQueries(["clients"]);
+    }
 
     const saveClientMutation = useSaveClient({
         onSuccess: () => {

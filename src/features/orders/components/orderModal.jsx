@@ -1,14 +1,13 @@
 import { OrderForm } from '@/features/orders/components/orderForm'
-import { Modal } from '@/shared/components/modal';
+import { MediumModal } from '@/shared/components/modal';
 
 export default function OrderModal({
-  formData,
-  onSuccess
+  formData
 }) {
   
   return (
-    <Modal name={"orderForm"} title={"Edit Order"}>
-      <OrderForm data={formData} onSuccess={onSuccess}/>
-    </Modal> 
+    <MediumModal name={"orderForm"} title={"Edit Order"}>
+      <OrderForm data={formData} />
+    </MediumModal> 
   )
 }

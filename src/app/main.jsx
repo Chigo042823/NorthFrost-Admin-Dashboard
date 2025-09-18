@@ -4,11 +4,13 @@ import '../assets/css/index.css'
 import { AppRoutes } from './routes'
 import { AppProvider } from './contextProvider'
 import { Toaster } from 'react-hot-toast'
+import { ModalRoot } from '@/shared/components/ModalRoot'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppProvider>
         <AppRoutes />
+        <ModalRoot />
         <Toaster />
     </AppProvider>
   </StrictMode>,

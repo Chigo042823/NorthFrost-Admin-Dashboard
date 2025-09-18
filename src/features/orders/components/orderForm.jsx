@@ -2,13 +2,22 @@ import { useModal } from "@/shared/contexts/modalContext";
 import { useSaveOrder } from "../api/orderQueries";
 import Select from "react-select";
 import { useClients } from "@/features/clients/api/clientQueries";
+import { useQueryClient } from "@tanstack/react-query";
 
-export const OrderForm = ({data, onSuccess}) => {
+export const OrderForm = ({data}) => {
+
+    const queryClient = useQueryClient();
+
     const modalCtx = useModal();
 
     const {data: clients = [], isLoading} = useClients();
 
     let isInsert = !data;
+
+    function onSuccess() {
+        queryClient.invalidateQueries(["clients"]);
+    }
+
 
     const saveOrderMutation = useSaveOrder({
         onSuccess: () => {

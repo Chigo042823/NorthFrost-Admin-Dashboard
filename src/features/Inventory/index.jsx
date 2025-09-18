@@ -1,5 +1,5 @@
 import React from 'react'
-import { MainContainer } from '../../../shared/components/mainContainer'
+import { MainContainer } from '../../shared/components/mainContainer'
 
 export const Inventory = () => {
   return (

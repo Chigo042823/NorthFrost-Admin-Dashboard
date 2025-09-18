@@ -22,7 +22,7 @@ export default function DeleteClientAlert({
           </button>
           <button
               type="submit"
-              className="px-4 py-2 rounded-md bg-emerald-500 text-white hover:bg-emerald-600"
+              className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
               // disabled={saveClientMutation.isPending}
               onClick={() => {
                   onClick()

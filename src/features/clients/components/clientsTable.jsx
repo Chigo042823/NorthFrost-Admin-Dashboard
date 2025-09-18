@@ -7,6 +7,9 @@ import {
 } from "@tanstack/react-table"
 
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { TableToolbar } from "@/shared/components/TableToolbar";
+import { DataTable } from "@/shared/components/DataTable"
  
 import {
   Table,
@@ -71,24 +74,6 @@ export function ClientsTable() {
         },
     });
 
-    const table = useReactTable({
-        data: clients,
-        columns: cols,
-        getCoreRowModel: getCoreRowModel(),
-        // debugAll: true,
-        getSortedRowModel: getSortedRowModel(),
-        onSortingChange: setSorting,
-        onGlobalFilterChange: setGlobalFilter,
-        getFilteredRowModel: getFilteredRowModel(),
-        globalFilterFn: 'includesString',
-        onColumnVisibilityChange: setColumnVisibility,
-        state: {
-            sorting,
-            globalFilter,
-            columnVisibility
-        }
-    });
-
     const deleteClientMutation = useDeleteClient({
         onSuccess: () => {
             handleSuccess();
@@ -98,7 +83,7 @@ export function ClientsTable() {
 
     function handleSuccess() {
         qclient.invalidateQueries(["clients"]);
-        console.log("Clients updated...")
+        console.log("Clients updated...")   
     }
 
     if (isLoading) {
@@ -106,61 +91,24 @@ export function ClientsTable() {
     }   
 
     return (
-        <>
+        <div className='container mx-auto px-4 py-2 shadow rounded-lg'>
             <ClientModal formData={formData} onSuccess={handleSuccess}/>
             <DeleteClientAlert onClick={() => {
                 deleteClientMutation.mutate({id: formData.client_id})
             }
             }/>
-            <div className="flex items-center py-2 justify-between">
-                <Input  
-                    value={globalFilter}
-                    onChange={e => table.setGlobalFilter(String(e.target.value))}
-                    placeholder="Search..."
-                    className="w-[30%] min-w-[15rem]"
-                    />
-                    <button className="bg-indigo-500 p-2 rounded-lg text-gray-50
-                        hover:transform-[scale(1.05)] hover:bg-indigo-600 hover:text-indigo-100 transition-all ease-in-out"
-                        onClick={() => {
-                            setFormData(null);
-                            modalContext.setCurrentModal("clientForm");
-                            modalContext.setTitle("Add Client");
-                        }}
-                        >
-                        Add Client
-                    </button>
-            </div>
-            <Table>
-                <TableHeader>
-                    {table.getHeaderGroups()?.map(group => (
-                            <TableRow key={group.id}>
-                                {group.headers.map(header => (
-                                    <TableHead key={header.id} className={header.index == 4 && "w-4"}>
-                                        {flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )}
-                                    </TableHead>
-                                ))}
-                            </TableRow>
-                        ))}
-                </TableHeader>
-                <TableBody>
-                    {table.getRowModel().rows.map(row => (
-                        <TableRow key={row.id}>
-                            {row.getVisibleCells().map(cell => (
-                                <TableCell className={cell.id == "actions" && "w-4"} key={cell.id}>
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext()
-                                        )}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </>
+            <TableToolbar setGlobalFilter={setGlobalFilter} globalFilter={globalFilter} setFormData={setFormData} />
+            <DataTable 
+                data={clients} 
+                columns={cols}
+                sorting={sorting}
+                setSorting={setSorting}
+                globalFilter={globalFilter}
+                setGlobalFilter={setGlobalFilter}
+                columnVisibility={columnVisibility}
+                setColumnVisibility={setColumnVisibility}
+            />
+        </div>
     )
 
 }

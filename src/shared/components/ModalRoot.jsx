@@ -1,7 +1,7 @@
 import ClientModal from "@/features/clients/components/clientModal";
 import { useModal } from "../contexts/modalContext"
 import OrderModal from "@/features/orders/components/orderModal";
-import DeleteOrderAlert from "@/features/orders/components/deleteOrderAlert";
+import DeleteOrderAlert from "@/shared/components/ConfirmModal";
 
 export const ModalRoot = () => {
     const { currentModal, modalData } = useModal();

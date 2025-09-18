@@ -23,7 +23,7 @@ export const useClientColumns = () => {
     const deleteClientMutation = useDeleteClient({
         onSuccess: () => {
             queryClient.invalidateQueries(["clients"]);
-            alertContext.setIsVisible(false);
+            modalContext.setCurrentModal(null)
         }
     })
     

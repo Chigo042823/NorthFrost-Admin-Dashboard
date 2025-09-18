@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NavBar, MobileNavBar } from '@/components/NavBar/NavBar';
+import { NavBar, MobileNavBar } from '@/features/navbar';
 import { Outlet } from 'react-router-dom';
 
 export const Layout = () => {

@@ -1,6 +1,6 @@
-import { Navigations } from "./Navigations"
-import { Branding } from "./Branding"
-import { Profile } from "./Profile"
+import { Navigations } from "./components/Navigations"
+import { Branding } from "./components/Branding"
+import { Profile } from "./components/Profile"
 
 export const NavBar = () => {
   return (

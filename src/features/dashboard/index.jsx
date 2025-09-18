@@ -1,5 +1,5 @@
-import { StatsCard, StatsCardSection } from "../../../features/dashboard/components/StatsCard"
-import { Widgets } from "../../../features/dashboard/components/Widgets"
+import { StatsCard, StatsCardSection } from "../../ui/StatsCard"
+import { Widgets } from "./Widgets"
 import { MainContainer } from "../../../shared/components/mainContainer"
 
 import { GiReceiveMoney, GiPayMoney } from "react-icons/gi"
@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getOrders } from "../../../api/orders"
 
 export const Dashboard = () => {
-  const { data, isLoading } = useQuery({
+  const { data: orders, isLoading } = useQuery({
     queryKey: ["orders"], 
     queryFn: getOrders
   })
@@ -18,7 +18,7 @@ export const Dashboard = () => {
     return <p>Loading...</p>
   }
 
-  const pending = data.filter(order => order.status == "pending").length;
+  const pending = orders.filter(order => order.status == "pending").length;
   return (
     <MainContainer title={"Dashboard"}>
         <StatsCardSection>

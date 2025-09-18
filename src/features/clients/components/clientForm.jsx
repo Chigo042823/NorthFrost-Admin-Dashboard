@@ -1,5 +1,5 @@
 import { useModal } from "@/shared/contexts/modalContext";
-import { useSaveClient } from "../api/useSaveClient";
+import { useSaveClient } from "../api/clientQueries";
 
 export const ClientForm = ({data, onSuccess}) => {
     const modalCtx = useModal();

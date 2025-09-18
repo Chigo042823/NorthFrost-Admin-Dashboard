@@ -1,6 +1,5 @@
 import { Alert } from '@/shared/components/alert';
 import { useAlert } from '@/shared/contexts/alertContext';
-import { useDeleteClient } from '../api/clientQueries';
 
 export default function DeleteClientAlert({
   onClick
@@ -12,7 +11,11 @@ export default function DeleteClientAlert({
     <Alert name={"clientForm"} title={"Edit Client"}>
       <div className="flex justify-end gap-3 mt-4 absolute bottom-4 right-4">
           <button
-              onClick={() => setIsVisible(false)}
+              onClick={() => 
+                {
+                  setIsVisible(false);
+                }
+              }
               className="px-4 py-2 rounded-md border text-stone-600 hover:bg-stone-100"
           >
               Cancel
@@ -23,7 +26,6 @@ export default function DeleteClientAlert({
               // disabled={saveClientMutation.isPending}
               onClick={() => {
                   onClick()
-                  // setIsVisible(false);
               }}
           >
               Delete Client

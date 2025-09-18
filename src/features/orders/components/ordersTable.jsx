@@ -23,28 +23,29 @@ import {
 import { Input } from "../../../components/ui/input";
 
 import { useContext, useState } from "react";
-import { useClientColumns } from "../hooks/useClientColumns"
+import { useOrderColumns } from "../hooks/useOrderColumns"
 
-import ClientModal from "./clientModal";
-import DeleteClientAlert from "./deleteClientAlert";
-import { getClients } from "../api/clientsApi";
+import OrderModal from "./orderModal";
+import DeleteOrderAlert from "./deleteOrderAlert";
+import { getOrders } from "../api/ordersApi";
 
-import { deleteClient } from "../api/clientsApi";
+import { deleteOrder } from "../api/ordersApi";
 import { useModal } from "@/shared/contexts/modalContext";
 import { useAlert } from "@/shared/contexts/alertContext";
-import { useClients, useDeleteClient } from "../api/clientQueries";
+import { useDeleteOrder } from "../api/orderQueries";
+import { useOrders } from "../api/orderQueries";
 
-export function ClientsTable() {
+export function OrdersTable() {
     const [formData, setFormData] = useState({});
 
     const [sorting, setSorting] = useState([
         {
-            id: "pendingOrders",
+            id: "date",
             desc: true
         },
     ]);
 
-    const {data: clients = [], isLoading} = useClients();
+    const {data: orders = [], isLoading} = useOrders();
 
     const [globalFilter, setGlobalFilter] = useState([]);
 
@@ -57,21 +58,21 @@ export function ClientsTable() {
     const modalContext = useModal();
     const alertContext = useAlert();
 
-    const cols = useClientColumns({
+    const cols = useOrderColumns({
         onEdit: (data) => {
             setFormData(data);
-            modalContext.setCurrentModal("clientForm")
-            modalContext.setTitle("Edit Client");
+            modalContext.setCurrentModal("orderForm")
+            modalContext.setTitle("Edit Order");
         },
         onDelete: (data) => {
             setFormData(data);
             alertContext.setIsVisible(true);
-            alertContext.setTitle("Delete Client");
-            alertContext.setText("Are you sure you wish to delete " + data.name + " as your client?")
+            alertContext.setTitle("Delete Order");
+            alertContext.setText("Are you sure you wish to delete " + data.name + " as your order?")
         },
     });
 
-    const deleteClientMutation = useDeleteClient({
+    const deleteOrderMutation = useDeleteOrder({
         onSuccess: () => {
             handleSuccess();
             alertContext.setIsVisible(false);
@@ -79,8 +80,8 @@ export function ClientsTable() {
     })
 
     function handleSuccess() {
-        qclient.invalidateQueries(["clients"]);
-        console.log("Clients updated...")   
+        qclient.invalidateQueries(["orders"]);
+        console.log("Orders updated...")   
     }
 
     if (isLoading) {
@@ -89,14 +90,14 @@ export function ClientsTable() {
 
     return (
         <div className='container mx-auto px-4 py-2 shadow rounded-lg'>
-            <ClientModal formData={formData} onSuccess={handleSuccess}/>
-            <DeleteClientAlert onClick={() => {
-                deleteClientMutation.mutate({id: formData.client_id})
+            <OrderModal formData={formData} onSuccess={handleSuccess}/>
+            <DeleteOrderAlert onClick={() => {
+                deleteOrderMutation.mutate({id: formData.order_id})
             }
             }/>
-            <TableToolbar setGlobalFilter={setGlobalFilter} globalFilter={globalFilter} setFormData={setFormData} />
+            <TableToolbar setGlobalFilter={setGlobalFilter} globalFilter={globalFilter} setFormData={setFormData} name={"order"}/>
             <DataTable 
-                data={clients} 
+                data={orders} 
                 columns={cols}
                 sorting={sorting}
                 setSorting={setSorting}

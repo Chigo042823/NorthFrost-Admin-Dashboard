@@ -3,7 +3,7 @@ import { LoginPage } from "@/features/auth/LoginPage"
 
 import { Dashboard } from "../components/MainContent/Dashboard"
 import { Finances } from "../components/MainContent/Finances"
-import { Orders } from "../components/MainContent/Orders"
+import { Orders } from "../features/orders"
 import { Inventory } from "../components/MainContent/Inventory"
 import { Clients } from "../features/clients"
 

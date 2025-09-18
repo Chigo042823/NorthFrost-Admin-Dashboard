@@ -1,6 +1,13 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { addClient, deleteClient, updateClient } from "./clientsApi";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
+import { addClient, deleteClient, updateClient, getClients } from "./clientsApi";
 import toast from "react-hot-toast";
+
+export const useClients = () => {
+    return useQuery({
+            queryKey: ["clients"],
+            queryFn: getClients
+        })
+}
 
 export const useSaveClient = ({
     onSuccess

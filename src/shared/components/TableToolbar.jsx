@@ -1,7 +1,7 @@
 import { useModal } from "../contexts/modalContext";
 import { Input } from "@/components/ui/input";
 
-export const TableToolbar = ({globalFilter, setFormData, setGlobalFilter}) => {
+export const TableToolbar = ({globalFilter, setFormData, setGlobalFilter, name}) => {
     const modalContext = useModal();
 
     return (
@@ -12,15 +12,15 @@ export const TableToolbar = ({globalFilter, setFormData, setGlobalFilter}) => {
                 placeholder="Search..."
                 className="w-[30%] min-w-[15rem]"
                 />
-                <button className="bg-indigo-500 p-2 rounded-lg text-gray-50
+                <button className="capitalize bg-indigo-500 p-2 rounded-lg text-gray-50
                     hover:transform-[scale(1.05)] hover:bg-indigo-600 hover:text-indigo-100 transition-all ease-in-out"
                     onClick={() => {
                         setFormData(null);
-                        modalContext.setCurrentModal("clientForm");
-                        modalContext.setTitle("Add Client");
+                        modalContext.setCurrentModal(name + "Form");
+                        modalContext.setTitle("Add " + name);
                     }}
                     >
-                    Add Client
+                    Add {name}
                 </button>
         </div>
     )

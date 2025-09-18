@@ -1,5 +1,5 @@
 import { MainContainer } from "@/shared/components/mainContainer"
-import { ClientsTable } from "./components/clientsTable"
+import { ClientsTable } from "../clients/components/clientsTable"
 
 export const Clients = () => {
   return (

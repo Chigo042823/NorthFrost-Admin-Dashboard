@@ -26,7 +26,7 @@ export const Loading = () => {
   }, [messages]);
 
   return (
-    <div className="w-full h-full flex items-center justify-center flex-col gap-4 text-sky-600/50 text-xl">
+    <div className="w-full h-[80%] flex items-center justify-center flex-col gap-4 text-sky-600/50 text-xl">
       <span className="loader"></span>
       <span
         className={`transition-opacity duration-500 ${

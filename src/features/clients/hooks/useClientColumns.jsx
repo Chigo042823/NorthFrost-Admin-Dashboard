@@ -74,10 +74,10 @@ export const useClientColumns = () => {
         }
     },
     {
-        accessorKey: "contactInfo",
-        header: "ContactInfo",
+        accessorKey: "contact_info",
+        header: "Contact Details",
         cell: ({ row }) => {
-            const contactInfo = row.getValue("contactInfo")
+            const contactInfo = row.getValue("contact_info")
             return(
                 <>
                     {contactInfo}

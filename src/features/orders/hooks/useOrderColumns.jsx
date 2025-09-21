@@ -50,13 +50,13 @@ export const useOrderColumns = () => {
             header: "Client",
             cell: ({ row }) => {
                 const client = row.getValue("name");
-                const location = row.original.address
+                const address = row.original.address
 
                 return (
                     <>
                         {client}
                         <div className="text-stone-400 text-sm">
-                        {location}
+                        {address}
                         </div>
                     </>
                 )
@@ -67,16 +67,16 @@ export const useOrderColumns = () => {
             header: "Location"
         },
         {
-            accessorKey: "order_qty",
-            header: "Order Qty.",
+            accessorKey: "quantity",
+            header: "Quantity",
             cell: ({ row }) => {
-                const order = parseFloat(row.getValue("order_qty"));
+                const order = parseFloat(row.getValue("quantity"));
 
-                const amount = parseFloat(row.getValue("amount"));
+                const total_amount = parseFloat(row.getValue("total_amount"));
                 const fmt = new Intl.NumberFormat("en-PH", {
                     style: "currency",
                     currency: "PHP",
-                }).format(amount);
+                }).format(total_amount);
 
                 return (
                     <>
@@ -87,14 +87,14 @@ export const useOrderColumns = () => {
             }
         },
         {
-            accessorKey: "amount",
-            header: () => (<div className="hidden md:table-cell">Amount</div>),
+            accessorKey: "total_amount",
+            header: () => (<div className="hidden md:table-cell">total_amount</div>),
             cell: ({ row }) => {
-                const amount = parseFloat(row.getValue("amount"));
+                const total_amount = parseFloat(row.getValue("total_amount"));
                 const fmt = new Intl.NumberFormat("en-PH", {
                     style: "currency",
                     currency: "PHP",
-                }).format(amount);
+                }).format(total_amount);
 
                 return (
                     <div className="hidden md:table-cell">{fmt}</div>
@@ -102,7 +102,7 @@ export const useOrderColumns = () => {
             }
         },
         {
-            accessorKey: "date",
+            accessorKey: "delivery_datetime",
             header: ({ column }) => {
                 return (
                     <Button 
@@ -111,19 +111,28 @@ export const useOrderColumns = () => {
                             column.toggleSorting(column.getIsSorted() === "asc")
                         }}
                     >
-                        Date
+                        Delivery Time
                         <ArrowUpDown />
                     </Button>
                 )
             },
             cell: ({ row }) => {
-                const date = new Date(row.original.date);
-                return(date.toLocaleDateString("en-US"))
+                const date = new Date(row.original.delivery_datetime);
+                return(
+                    <div className="block">
+                        {date.toLocaleTimeString("en-PH")}
+                        <p className="text-stone-500 text-xs">{date.toLocaleDateString("en-PH")}</p>
+                    </div>
+                )
             }
         },
         {
             accessorKey: "status",
             header: "Status"
+        },
+        {
+            accessorKey: "order_note",
+            header: "Note"
         },
         {
             id: "actions",  
@@ -140,6 +149,7 @@ export const useOrderColumns = () => {
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => {
                             onEdit(row.original)
+                            console.log(row.original)
                             }}>
                                 View Order Details
                             </DropdownMenuItem>

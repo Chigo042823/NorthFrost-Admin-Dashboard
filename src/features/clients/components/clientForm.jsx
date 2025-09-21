@@ -60,7 +60,7 @@ export const ClientForm = ({data}) => {
                 </label>
                 <input
                 type="text"
-                name="contactInfo"
+                name="contact_info"
                 defaultValue={data ? data.contactInfo : ""}
                 className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 
                             focus:ring-2 focus:ring-indigo-500 focus:outline-none"

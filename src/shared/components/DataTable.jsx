@@ -32,7 +32,7 @@ export const DataTable = ({
     });
 
     return (
-        <Table>
+        <Table className="table-auto">
                 <TableHeader>
                     {table.getHeaderGroups()?.map(group => (
                             <TableRow key={group.id}>
@@ -51,7 +51,7 @@ export const DataTable = ({
                     {table.getRowModel().rows.map(row => (
                         <TableRow key={row.id}>
                             {row.getVisibleCells().map(cell => (
-                                <TableCell className={`${cell.id == "actions" && "w-4"} text-wrap`} key={cell.id}>
+                                <TableCell className={`${cell.id == "actions" && "w-4"} whitespace-normal max-w-[10vw]`} key={cell.id}>
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()

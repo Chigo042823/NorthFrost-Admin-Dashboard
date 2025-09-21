@@ -1,5 +1,6 @@
 import { MainContainer } from "@/shared/components/mainContainer"
 import { OrdersTable } from "../orders/components/ordersTable"
+import { Loading } from '@/shared/components/Loading'
 
 export const Orders = () => {
   return (

@@ -61,7 +61,7 @@ export const ClientForm = ({data}) => {
                 <input
                 type="text"
                 name="contact_info"
-                defaultValue={data ? data.contactInfo : ""}
+                defaultValue={data ? data.contact_info : ""}
                 className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 
                             focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                 />

@@ -24,7 +24,7 @@ export const LoginForm = ({onSubmit}) => {
 
             <button
                 type="submit"
-                className="mt-3 px-4 py-2 rounded-md w-full bg-indigo-500 text-white hover:bg-indigo-600"
+                className="mt-4 px-4 py-2 rounded-md w-full bg-indigo-500 text-white hover:bg-indigo-600"
             >
                 Log in
             </button>

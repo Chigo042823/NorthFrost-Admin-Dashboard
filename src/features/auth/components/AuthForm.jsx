@@ -39,12 +39,15 @@ export const AuthForm = () => {
     }
 
     return (
-        <div className="p-4 h-[90%] w-[80%]">
-            <BsSnow2 size={"4em"} className="mb-7 text-indigo-500"/>
-            <p className="text-4xl text-stone-900 font-bold mb-2">
+        <div className="md:text-left relative md:static p-4 pt-1 md:pt-4 h-full md:h-[90%] w-[90%] md:w-[80%]">
+            <div className="absolute md:static left-1/2 transform -translate-x-1/2 -translate-y-14 
+                rounded-full bg-white p-3 md:p-0 z-0 md:z-10 md:mb-7 md:transform-none md:translate-0">
+                <BsSnow2 className="text-6xl md:text-7xl md:static text-indigo-500"/>
+            </div>
+            <p className="relative text-4xl text-stone-900 font-bold mb-2 text-center md:text-left z-10 mt-6">
                 {isLogin ? "Welcome Back!" : "Welcome!"}
-                </p>
-            <p className="text-gray-500 mb-8">
+            </p>
+            <p className="text-gray-500 mb-9 md:mb-8 text-center md:text-left">
                 Please enter your details to {isLogin ? "sign in" : "sign up"}
             </p>
             {isLogin ? <LoginForm onSubmit={handleSubmit}/> : <RegisterForm onSubmit={handleSubmit}/>}

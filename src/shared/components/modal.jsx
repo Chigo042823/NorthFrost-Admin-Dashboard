@@ -13,7 +13,7 @@ export function MediumModal({ name, children, size = "md" }) {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen bg-stone-500/50 z-10 flex justify-center items-center">
+    <div className="z-40 fixed top-0 left-0 w-screen h-screen bg-stone-500/50 z-10 flex justify-center items-center">
       <div
         className={`relative rounded-xl bg-white overflow-y-auto p-4 ${sizeClasses[size]}`}
       >
@@ -30,9 +30,9 @@ export function SmallModal({ children }) {
   const { title, text, setCurrentModal } = useModal();
 
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen bg-stone-500/50 z-10 flex justify-center items-center">
+    <div className="z-40 fixed top-0 left-0 w-screen h-screen bg-stone-500/50 flex justify-center items-center">
       <div
-        className={`text-stone-800 relative rounded-xl bg-white overflow-y-auto p-4 w-[50vw] h-[30vh]`}
+        className={`text-stone-800 relative rounded-xl bg-white overflow-y-auto p-4 w-[85vw] md:w-[50vw] h-[20vh] md:h-[30vh]`}
       >
         <DialogHeader title={title} closeFn={() => {
           setCurrentModal(null)

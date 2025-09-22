@@ -4,6 +4,19 @@ import { useToken } from "@/features/auth/hooks/useToken"
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/features/users/api/userQueries";
+import { FaGear } from "react-icons/fa6";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/shared/dropdown-menu"
+
+import { Button } from "@/shared/button";
+import { MoreHorizontal } from "lucide-react";
+
+import toast from "react-hot-toast";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -13,21 +26,43 @@ export const Profile = () => {
   const {data: user = {}, isLoading} = useUser(uid);
 
   return (
-    <div className="w-full flex items-center justify-start p-2 gap-x-2">
-        <MdAccountCircle className="text-3xl"/>
+    <div className="md:w-full flex items-center justify-start p-2 gap-x-2">
 
         {isLoading && "Loading user..."}
         
         <div>
-            <p className="text-lg/tight font-bold">{user.username}</p>
-            <p className="text-sm/tight text-stone-400">{user.role}</p>
+            <p className="font-bold">{user.username}</p>
+            <p className="text-xs text-stone-400">{user.role}</p>
         </div>
-        <button onClick={() => {
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="mr-0 ml-auto p-2.5 rounded-lg hover:bg-gray-200">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal/>
+                        </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => {
+              toast.promise(async () => {
+                  clearToken();
+                  navigate("/login");
+                }
+                , {
+                  success: "Logged out successfully!",
+                  loading: "Logging out...",
+                  error: "Error: could not log out"
+                })
+              }} >
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        {/* <button onClick={() => {
           clearToken();
           navigate("/login");
           }} className="mr-0 ml-auto p-2.5 rounded-lg hover:bg-gray-200">
             <IoExitOutline />
-        </button>
+        </button> */}
     </div>
   )
 }

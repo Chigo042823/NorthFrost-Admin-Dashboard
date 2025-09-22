@@ -9,7 +9,7 @@ import { SideBarLink } from "./NavBarLink"
 export const Navigations = () => {
 
   return (
-    <div className="md:space-y-1 flex gap-x-2 flex-row sm:space-y-0 md:flex-col justify-center md:justify-start">
+    <div className="md:space-y-1 flex gap-x-2 flex-row space-y-0 md:flex-col justify-center md:justify-start h-full">
         <SideBarLink title={"Dashboard"} Icon={FiHome} href={"/"}/>
         <SideBarLink title={"Finances"} Icon={TbCurrencyPeso} href={"/finances"}/>
         <SideBarLink title={"Orders"} Icon={BsCardChecklist} href={"/orders"}/>

@@ -51,7 +51,7 @@ export const DataTable = ({
                     {table.getRowModel().rows.map(row => (
                         <TableRow key={row.id}>
                             {row.getVisibleCells().map(cell => (
-                                <TableCell className={`${cell.id == "actions" && "w-4"} whitespace-normal max-w-[10vw]`} key={cell.id}>
+                                <TableCell className={`${cell.id == "actions" && "w-4"} whitespace-normal`} key={cell.id}>
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()

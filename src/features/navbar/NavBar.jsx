@@ -16,7 +16,8 @@ export const NavBar = () => {
 
 export const MobileNavBar = () => {
   return (
-    <div className='fixed w-screen h-16 p-1 bg-stone-100 border-t-2 bodred-stone-700 inset-x-0 bottom-0 z-40 md:hidden rounded-2xl
+    <div className='fixed w-screen h-16 p-1 bg-stone-100 border-t-2 bodred-stone-700 inset-x-0 bottom-0 z-40 md:hidden 
+      rounded-tl-2xl rounded-tr-2xl
       overflow-hidden
     '>
       <Navigations />

@@ -3,7 +3,7 @@ import { BsSnow2 } from "react-icons/bs"
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
 import { useToken } from "../hooks/useToken";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useLoginUser, useRegisterUser } from "@/features/users/api/userQueries";
 
@@ -24,7 +24,6 @@ export const AuthForm = () => {
         if (isLogin) {
             loginUser.mutate(data, {
                 onSuccess: () => {
-                    navigate("/")
                 }
             })
         } else {

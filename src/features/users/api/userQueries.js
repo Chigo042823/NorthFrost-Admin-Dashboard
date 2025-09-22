@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { addUser, deleteUser, updateUser, getUsers, loginUser, getUser, registerUser } from "./usersApi";
 import toast from "react-hot-toast";
 import { useToken } from "@/features/auth/hooks/useToken";
+import { useNavigate } from "react-router-dom";
 
 export const useUsers = () => {
     return useQuery({
@@ -79,6 +80,7 @@ export const useDeleteUser = ({
 }
 
 export function useLoginUser() {
+    const navigate = useNavigate();
     const [_, saveToken] = useToken();
 
     return useMutation({
@@ -90,6 +92,7 @@ export function useLoginUser() {
             toast.dismiss();
             toast.success("Logged in successfully!");
             saveToken(data.access_token);
+            navigate("/");
         },
         onError: (error) => {
             toast.dismiss();

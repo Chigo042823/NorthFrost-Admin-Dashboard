@@ -30,7 +30,12 @@ export function ClientsTable() {
 
     return (
         <div className='container mx-auto px-4 py-2 shadow rounded-lg'>
-            <TableToolbar name={"client"} setGlobalFilter={setGlobalFilter} globalFilter={globalFilter}/>
+            <TableToolbar 
+                name={"client"} 
+                setGlobalFilter={setGlobalFilter} 
+                globalFilter={globalFilter}
+                willInsert={true}
+            />  
             <DataTable 
                 data={clients} 
                 columns={cols}

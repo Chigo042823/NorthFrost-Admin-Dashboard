@@ -48,7 +48,7 @@ export const OrderForm = ({data}) => {
 
     return (
         <form onSubmit={handleSubmit} className="mt-2" id="orderForm">
-            <div className="space-y-2 overflow-y-auto max-h-[65vh] p-0.5">
+            <div className="space-y-2 overflow-y-auto max-h-[60vh] p-0.5">
                 <input id="client_id" type="text" name="client_id" className="hidden" defaultValue={data ? data.client_id : null}/>
                 <div>
                     <label className="block text-sm font-medium text-stone-600">
@@ -146,7 +146,7 @@ export const OrderForm = ({data}) => {
                     />
                 </div>
             </div>
-            <div className="flex justify-end gap-3 mt-4 absolute bottom-4 right-6">
+            <div className="flex justify-end gap-3 mt-4">
                 <button
                     onClick={() => modalCtx.setCurrentModal(null)}
                     className="px-4 py-2 rounded-md border text-stone-600 hover:bg-stone-100"

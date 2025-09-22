@@ -2,19 +2,19 @@ import { TableToolbar } from "@/shared/components/TableToolbar";
 import { DataTable } from "@/shared/components/DataTable"
 
 import { useState } from "react";
-import { useOrderColumns } from "../hooks/useOrderColumns"
-import { useOrders } from "../api/orderQueries";
+import { useUsersColumns } from "../hooks/useUsersColumns"
+import { useUsers } from "../api/userQueries";
 
-export function OrdersTable() {
+export function UsersTable() {
 
     const [sorting, setSorting] = useState([
-        {
-            id: "delivery_datetime",
-            desc: true
-        },
+        // {
+        //     id: "pendingOrders",
+        //     desc: true
+        // },
     ]);
 
-    const {data: orders = [], isLoading} = useOrders();
+    const {data: users = [], isLoading} = useUsers();
 
     const [globalFilter, setGlobalFilter] = useState([]);
 
@@ -22,22 +22,22 @@ export function OrdersTable() {
         id: false,
     });
 
-    const cols = useOrderColumns();
+    const cols = useUsersColumns();
 
     if (isLoading) {
         return <p>Loading...</p>
     }   
 
     return (
-        <div className='container mx-auto px-4 py-2 rounded-lg'>
+        <div className='container mx-auto px-4 py-2 shadow rounded-lg'>
             <TableToolbar 
-                name={"order"} 
+                name={"user"} 
                 setGlobalFilter={setGlobalFilter} 
                 globalFilter={globalFilter}
-                willInsert={true}
-            />            
-            <DataTable
-                data={orders} 
+                willInsert={false}
+            />
+            <DataTable 
+                data={users} 
                 columns={cols}
                 sorting={sorting}
                 setSorting={setSorting}

@@ -4,14 +4,12 @@ import { DialogHeader } from "./dialogHeader";
 export function MediumModal({ name, children, size = "md" }) {
   const { currentModal, title, setCurrentModal } = useModal();
 
-  console.log(currentModal);
-
   if (currentModal !== name) return null;
   
 
   const sizeClasses = {
-    sm: "w-[60vw] h-[40vh]",
-    md: "w-[80vw] h-[88vh]",
+    sm: "w-[60vw] max-h-[40vh]",
+    md: "w-[80vw] max-h-[88vh]",
   };
 
   return (

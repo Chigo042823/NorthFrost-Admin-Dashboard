@@ -3,7 +3,7 @@ import { FiHome } from "react-icons/fi"
 import { MdOutlinePeopleAlt } from "react-icons/md"
 import { TbCurrencyPeso } from "react-icons/tb"
 import { BsBoxSeam } from "react-icons/bs"
-
+import { RiShieldUserLine } from "react-icons/ri"
 import { SideBarLink } from "./NavBarLink"
 
 export const Navigations = () => {
@@ -15,6 +15,7 @@ export const Navigations = () => {
         <SideBarLink title={"Orders"} Icon={BsCardChecklist} href={"/orders"}/>
         <SideBarLink title={"Inventory"} Icon={BsBoxSeam} href={"/inventory"}/>  
         <SideBarLink title={"Clients"} Icon={MdOutlinePeopleAlt} href={"/clients"}/>  
+        <SideBarLink title={"Users"} Icon={RiShieldUserLine} href={"/users"}/>  
     </div>
   )
 }

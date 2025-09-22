@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
 import { addClient, deleteClient, updateClient, getClients } from "./clientsApi";
 import toast from "react-hot-toast";
+import { useToken } from "@/features/auth/hooks/useToken";
 
 export const useClients = () => {
+    const [token, _] = useToken()
     return useQuery({
             queryKey: ["clients"],
-            queryFn: getClients
+            queryFn: () => getClients(token)
         })
 }
 
@@ -13,13 +15,14 @@ export const useSaveClient = ({
     onSuccess
 }) => {
     const queryClient = useQueryClient();
+    const [token, _] = useToken()
 
     return useMutation(
         {
         mutationFn: async ({ data }) => {
             const promise = !data.client_id
-                ? addClient(data)
-                : updateClient(data);
+                ? addClient(data, token)
+                : updateClient(data, token);
 
             return toast.promise(promise, {
                 loading: !data.client_id ? "Adding client..." : "Updating client...",
@@ -45,12 +48,13 @@ export const useDeleteClient = ({
     onSuccess
 }) => {
     const queryClient = useQueryClient();
+    const [token, _] = useToken()
 
     return useMutation(
         {
             mutationFn: async ({id}) => {
 
-            return toast.promise(() => deleteClient(id), {
+            return toast.promise(() => deleteClient(id, token), {
                 loading: "Deleting client...",
                 success: "Client deleted successfully!",
                 error: "Failed to delete client."

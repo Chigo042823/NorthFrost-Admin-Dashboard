@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
 import { addOrder, deleteOrder, updateOrder, getOrders } from "./ordersApi";
 import toast from "react-hot-toast";
+import { useToken } from "@/features/auth/hooks/useToken";
 
 export const useOrders = () => {
+    const [token, _] = useToken();
     return useQuery({
             queryKey: ["orders"],
-            queryFn: getOrders
+            queryFn: () => getOrders(token)
         })
 }
 
@@ -13,13 +15,14 @@ export const useSaveOrder = ({
     onSuccess
 }) => {
     const queryClient = useQueryClient();
+    const [token, _] = useToken();
 
     return useMutation(
         {
         mutationFn: async ({ data }) => {
             const promise = !data.order_id
-                ? addOrder(data)
-                : updateOrder(data);
+                ? addOrder(data, token)
+                : updateOrder(data, token);
 
             return toast.promise(promise, {
                 loading: !data.order_id ? "Adding order" : "Updating order",
@@ -45,12 +48,13 @@ export const useDeleteOrder = ({
     onSuccess
 }) => {
     const queryClient = useQueryClient();
+    const [token, _] = useToken();
 
     return useMutation(
         {
             mutationFn: async ({id}) => {
 
-            return toast.promise(() => deleteOrder(id), {
+            return toast.promise(() => deleteOrder(id, token), {
                 loading: "Deleting order",
                 success: "Order deleted successfully!",
                 error: "Failed to delete order"

@@ -10,7 +10,7 @@ export const TableToolbar = ({globalFilter, setGlobalFilter, name, willInsert}) 
                 value={globalFilter}
                 onChange={e => setGlobalFilter(String(e.target.value))}
                 placeholder="Search..."
-                className="w-[30%] min-w-[15rem]"
+                className="w-[30%] min-w-[9rem]"
                 />
                 {willInsert && 
                     <button className="capitalize bg-indigo-500 p-2 rounded-lg text-gray-50

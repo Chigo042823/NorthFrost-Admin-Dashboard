@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { BsSnow2 } from "react-icons/bs"
 import { LoginForm } from "./LoginForm";
-import { RegisterForm } from "./registerForm";
-import { loginUser, registerUser } from "@/features/users/api/usersApi";
+import { RegisterForm } from "./RegisterForm";
 import { useToken } from "../hooks/useToken";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";

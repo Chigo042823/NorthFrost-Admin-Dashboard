@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
-import { addClient, deleteClient, updateClient, getClients } from "./clientsApi";
+import { addClient, deleteClient, updateClient, getClients, getClient, getClientOrders } from "./clientsApi";
 import toast from "react-hot-toast";
 import { useToken } from "@/features/auth/hooks/useToken";
 
@@ -8,6 +8,24 @@ export const useClients = () => {
     return useQuery({
             queryKey: ["clients"],
             queryFn: () => getClients(token)
+        })
+}
+
+export const useClient = (id) => {
+    const [token, _] = useToken()
+    return useQuery({
+            queryKey: ["client"],
+            queryFn: () => getClient(id, token)
+        })
+}
+
+export const useClientOrders = (id, options = {}) => {
+    const [token, _] = useToken()
+    return useQuery({
+            queryKey: ["clientOrders", id],
+            queryFn: () => getClientOrders(id, token),
+            enabled: !!id,
+            ...options
         })
 }
 

@@ -2,14 +2,12 @@ import { useState } from "react";
 import { BsSnow2 } from "react-icons/bs"
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
-import { useToken } from "../hooks/useToken";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useLoginUser, useRegisterUser } from "@/features/users/api/userQueries";
+import { useLoginUser, useRegisterUser } from "../api/authQueries";
 
 export const AuthForm = () => {
     const [isLogin, setIsLogin] = useState(true);
-    const [acctoken, saveToken] = useToken();
 
     const loginUser = useLoginUser();
     const registerUser = useRegisterUser();
@@ -20,10 +18,13 @@ export const AuthForm = () => {
         e.preventDefault();
         let formData = new FormData(e.target)
         const data = Object.fromEntries(formData.entries())
-
         if (isLogin) {
             loginUser.mutate(data, {
                 onSuccess: () => {
+                    console.log("success")
+                },
+                onError: e => {
+                    console.log(e)
                 }
             })
         } else {
@@ -32,10 +33,7 @@ export const AuthForm = () => {
                     navigate("/login")
                 }
             })
-        }
-
-        
-        navigate("/");
+        }       
     }
 
     return (

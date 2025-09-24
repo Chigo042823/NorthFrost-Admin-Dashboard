@@ -77,28 +77,39 @@ export const OrderForm = ({data}) => {
                     />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                    <label className="block text-sm font-medium text-stone-600">
-                        Order Qty. (kg)
-                    </label>
-                    <input
-                        type="number"
-                        name="quantity"
-                        defaultValue={data ? data.quantity : null}
-                        className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                    />
+                <div className="flex space-x-2">
+                    <div className="flex-3">
+                        <label className="block text-sm font-medium text-stone-600">
+                            Order Qty.
+                        </label>
+                        <input
+                            type="number"
+                            name="quantity"
+                            defaultValue={data ? data.quantity : null}
+                            className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        />
                     </div>
-                    <div>
-                    <label className="block text-sm font-medium text-stone-600">
-                        Amount (₱)
-                    </label>
-                    <input
-                        type="number"
-                        name="total_amount"
-                        defaultValue={data ? data.total_amount : null}
-                        className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                    />
+                    <div className="flex-1 min-w-[12vw]">
+                        <label className="block text-sm font-medium text-stone-600">
+                            Unit
+                        </label>
+                        <input
+                            type="text"
+                            name="unit"
+                            defaultValue={data ? data.unit : "kg"}
+                            className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        />
+                    </div>
+                    <div className="flex-4">
+                        <label className="block text-sm font-medium text-stone-600">
+                            Amount (₱)
+                        </label>
+                        <input
+                            type="number"
+                            name="total_amount"
+                            defaultValue={data ? data.total_amount : null}
+                            className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        />
                     </div>
                 </div>
 
@@ -138,7 +149,7 @@ export const OrderForm = ({data}) => {
                     Note
                     </label>
                     <textarea
-                    name="note"
+                    name="order_note"
                     defaultValue={data ? data.order_note : ""}
                     rows={3}
                     className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 

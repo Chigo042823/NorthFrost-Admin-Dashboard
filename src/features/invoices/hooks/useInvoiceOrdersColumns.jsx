@@ -1,4 +1,4 @@
-import { ArrowUpDown, MoreHorizontal, SortAsc } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/shared/button"
 
@@ -6,23 +6,23 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/shared/dropdown-menu"
 
 import { useModal } from "@/shared/contexts/modalContext"
 
-import { useDeleteOrder } from "../api/orderQueries"
-import { useQueryClient } from "@tanstack/react-query"
 
-export const useOrderColumns = () => { 
+import { useQueryClient } from "@tanstack/react-query"
+import { useDeleteInvoice } from "../api/invoiceQueries"
+
+export const useInvoicesColumns = () => { 
 
     const modalContext = useModal();
     const queryClient = useQueryClient();
 
-    const deleteOrderMutation = useDeleteOrder({
+    const deleteOrderMutation = useDeleteInvoice({
         onSuccess: () => {
-            queryClient.invalidateQueries(["orders"]);
+            queryClient.invalidateQueries(["invoices"]);
             modalContext.setCurrentModal(null);
         }
     })
@@ -30,96 +30,24 @@ export const useOrderColumns = () => {
     const {onEdit, onDelete} = {
             onEdit: (data) => {
                 modalContext.setModalData(data);
-                modalContext.setCurrentModal("orderForm");
-                modalContext.setTitle("Edit Order");
+                modalContext.setCurrentModal("invoiceForm");
+                modalContext.setTitle("Edit Invoice");
             },
             onDelete: (data) => {
                 modalContext.setModalData(data);
                 modalContext.setOnClick(() => {
-                    deleteOrderMutation.mutate({id: data.order_id});
+                    deleteInvoiceMutation.mutate({id: data.invoice_id});
                 });
                 modalContext.setCurrentModal("confirmDelete");
-                modalContext.setTitle("Delete Order");
-                modalContext.setText("Are you sure you wish to delete " + data.name + "'s order?")
+                modalContext.setTitle("Delete Invoice");
+                modalContext.setText("Are you sure you wish to delete " + data.name + "'s invoice?")
             },
     }
     
     return [
         {
-            accessorKey: "name",
-            header: "Client",
-            cell: ({ row }) => {
-                const client = row.getValue("name");
-                const address = row.original.address
-
-                return (
-                    <>
-                        {client}
-                        <div className="text-stone-400 text-sm">
-                        {address}
-                        </div>
-                    </>
-                )
-            }
-        },
-        {
-            accessorKey: "unit"
-        },
-        {
-            accessorKey: "location",
-            header: "Location"
-        },
-        {
-            accessorKey: "quantity",
-            header: "Quantity",
-            cell: ({ row }) => {
-                const order = parseFloat(row.getValue("quantity"));
-                const unit = row.getValue("unit");
-
-                const total_amount = parseFloat(row.getValue("total_amount"));
-                const fmt = new Intl.NumberFormat("en-PH", {
-                    style: "currency",
-                    currency: "PHP",
-                }).format(total_amount);
-
-                return (
-                    <>
-                        <div>{order} {unit}</div>
-                        <div className="md:hidden text-sm text-stone-400">{fmt}</div>
-                    </>
-                )
-            }
-        },
-        {
-            accessorKey: "total_amount",
-            header: () => (<div className="hidden md:table-cell">total_amount</div>),
-            cell: ({ row }) => {
-                const total_amount = parseFloat(row.getValue("total_amount"));
-                const fmt = new Intl.NumberFormat("en-PH", {
-                    style: "currency",
-                    currency: "PHP",
-                }).format(total_amount);
-
-                return (
-                    <div className="hidden md:table-cell">{fmt}</div>
-                )
-            }
-        },
-        {
             accessorKey: "delivery_datetime",
-            header: ({ column }) => {
-                return (
-                    <Button 
-                        variant="ghost" 
-                        onClick={() => {
-                            column.toggleSorting(column.getIsSorted() === "asc")
-                        }}
-                    >
-                        Delivery Time
-                        <ArrowUpDown />
-                    </Button>
-                )
-            },
+            header: "Date",
             cell: ({ row }) => {
                 const date = new Date(row.original.delivery_datetime);
                 return(
@@ -131,12 +59,47 @@ export const useOrderColumns = () => {
             }
         },
         {
+            header: "Item",
+            cell: ({}) => "Ice Order"
+        },
+        {
+            accessorKey: "quantity",
+            header: "Qty",
+            cell: ({ row }) => {
+                const order = parseFloat(row.getValue("quantity"));
+
+                const total_amount = parseFloat(row.getValue("total_amount"));
+                const fmt = new Intl.NumberFormat("en-PH", {
+                    style: "currency",
+                    currency: "PHP",
+                }).format(total_amount);
+
+                return (
+                    <>
+                        <div>{order} kg</div>
+                        <div className="md:hidden text-sm text-stone-400">{fmt}</div>
+                    </>
+                )
+            }
+        },
+        {
             accessorKey: "status",
             header: "Status"
         },
         {
-            accessorKey: "order_note",
-            header: "Note"
+            accessorKey: "total",
+            header: "Total",
+            cell: ({ row }) => {
+                const total_amount = parseFloat(row.getValue("total"));
+                const fmt = new Intl.NumberFormat("en-PH", {
+                    style: "currency",
+                    currency: "PHP",
+                }).format(total_amount);
+
+                return (
+                    <div>{fmt}</div>
+                )
+            }
         },
         {
             id: "actions",  

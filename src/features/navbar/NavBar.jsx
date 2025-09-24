@@ -4,8 +4,8 @@ import { Profile } from "./components/Profile"
 
 export const NavBar = () => {
   return (
-    <div className="sticky top-2 h-[calc(100vh-16px)] hidden md:block pl-2">
-        <div className="h-[calc(88vh)] border-b border-stone-400">  
+    <div className="sticky top-2 h-[calc(100vh-16px)] hidden md:flex md:flex-col md:justify-between pl-2">
+        <div>  
             <Branding />
             <Navigations />
         </div>

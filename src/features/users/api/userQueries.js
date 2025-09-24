@@ -1,8 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { addUser, deleteUser, updateUser, getUsers, loginUser, getUser, registerUser } from "./usersApi";
+import { addUser, deleteUser, updateUser, getUsers, getUser } from "./usersApi";
 import toast from "react-hot-toast";
-import { useToken } from "@/features/auth/hooks/useToken";
-import { useNavigate } from "react-router-dom";
 
 export const useUsers = () => {
     return useQuery({
@@ -77,39 +75,4 @@ export const useDeleteUser = ({
             }
         }
     )
-}
-
-export function useLoginUser() {
-    const navigate = useNavigate();
-    const [_, saveToken] = useToken();
-
-    return useMutation({
-        mutationFn: loginUser,
-        onMutate: () => {
-            toast.loading("Logging in...");
-        }, 
-        onSuccess: (data) => {
-            toast.dismiss();
-            toast.success("Logged in successfully!");
-            saveToken(data.access_token);
-            navigate("/");
-        },
-        onError: (error) => {
-            toast.dismiss();
-            toast.error("" + error);
-            console.error("Login failed ||", error);
-        }
-    });
-}
-
-export function useRegisterUser() {
-  return useMutation({
-    mutationFn: registerUser, // takes user_data
-    onSuccess: (data) => {
-      console.log("Success: " + data);
-    },
-    onError: (error) => {
-      console.error("Login failed:", error);
-    }
-  });
 }

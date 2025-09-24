@@ -1,7 +1,7 @@
 import { apiURL } from "@/shared/utils/env";
 
-export async function getClients(token) {
-    const resp = await fetch(apiURL + "clients", {
+export async function getInvoices(token) {
+    const resp = await fetch(apiURL + "invoices/withclients", {
         headers: {
             "Authorization": "Bearer " + token
         }
@@ -15,8 +15,8 @@ export async function getClients(token) {
     return resp.json()
 }
 
-export async function getClient(client_id, token) {;
-    const resp = await fetch(apiURL + "clients/" + client_id, {
+export async function getInvoice(invoice_id, token) {;
+    const resp = await fetch(apiURL + "invoices/" + invoice_id, {
         headers: {
             "Authorization": "Bearer " + token
         }
@@ -30,8 +30,8 @@ export async function getClient(client_id, token) {;
     return resp.json()
 }
 
-export async function getClientOrders(client_id, token) {;
-    const resp = await fetch(apiURL + "clients/" + client_id + "/orders", {
+export async function getInvoiceOrders(invoice_id, token) {;
+    const resp = await fetch(apiURL + "invoices/" + invoice_id + "/orders", {
         headers: {
             "Authorization": "Bearer " + token
         }
@@ -42,13 +42,11 @@ export async function getClientOrders(client_id, token) {;
         throw new Error(`Error ${resp.status}: ${errText}`);
     }
 
-    const json = resp.json();
-
-    return json
+    return resp.json()
 }
 
-export async function addClient(data, token) {;
-    const resp = await fetch(apiURL + "clients", {
+export async function addInvoice(data, token) {;
+    const resp = await fetch(apiURL + "invoices", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -65,9 +63,9 @@ export async function addClient(data, token) {;
     return resp.json()
 }
 
-export async function updateClient(data, token) {;
-    const id = data.client_id;
-    const resp = await fetch(apiURL + "clients/" + id, {
+export async function updateInvoice(data, token) {;
+    const id = data.invoice_id;
+    const resp = await fetch(apiURL + "invoices/" + id, {
         method: "PATCH",
         body: JSON.stringify(data),
         headers: {
@@ -84,8 +82,8 @@ export async function updateClient(data, token) {;
     return resp.json()
 }
 
-export async function deleteClient(id, token) {;
-    const resp = await fetch(apiURL + "clients/" + id, {
+export async function deleteInvoice(id, token) {;
+    const resp = await fetch(apiURL + "invoices/" + id, {
         method: "DELETE",
         headers: {
             "Authorization": "Bearer " + token

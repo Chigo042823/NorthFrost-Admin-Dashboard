@@ -22,6 +22,7 @@ export async function getOrder(order_id, token) {
 }
 
 export async function addOrder(data, token) {
+    console.log(data)
     const resp = await fetch(apiURL + "orders", {
         method: "POST",
         body: JSON.stringify(data),

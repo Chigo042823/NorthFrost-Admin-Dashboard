@@ -26,7 +26,7 @@ export const Profile = () => {
   const {data: user = {}, isLoading} = useUser(uid);
 
   return (
-    <div className="md:w-full flex items-center justify-start p-2 gap-x-2">
+    <div className="md:w-full flex items-center justify-start p-2 md:pb-0 gap-x-2 border-t border-stone-400">
 
         {isLoading && "Loading user..."}
         
@@ -57,12 +57,6 @@ export const Profile = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        {/* <button onClick={() => {
-          clearToken();
-          navigate("/login");
-          }} className="mr-0 ml-auto p-2.5 rounded-lg hover:bg-gray-200">
-            <IoExitOutline />
-        </button> */}
     </div>
   )
 }

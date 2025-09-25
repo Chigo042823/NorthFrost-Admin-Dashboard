@@ -16,8 +16,8 @@ export const NavLinkAccordion = ({title, Icon, children, href}) => {
     return (
         <Accordion type="single" collapsible>
             <AccordionItem value="link-1">
-                <AccordionTrigger className={`items-center w-full rounded-t-xl md:rounded 
-                text-base px-2 py-0 md:py-1.5 *:transition-all duration-200 
+                <AccordionTrigger className={`h-full items-center w-full rounded-t-xl md:rounded 
+                text-base px-2 md:py-1.5 *:transition-all duration-200 
                 ${isActive ? "bg-white text-stone-900 shadow": "bg-stone-100 text-stone-500 hover:bg-gray-200"}`}>
                     <div className="flex items-center gap-2">
                         <Icon className={`${isActive ? "text-indigo-700": ""} text-3xl md:text-base`} />

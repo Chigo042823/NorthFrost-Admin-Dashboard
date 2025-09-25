@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 
-export const SideBarLink  = ({title, Icon, href, isSub = false}) => {
+export const NavBarLink  = ({title, Icon, href, isSub = false}) => {
 
   const bgUnfocused = isSub ? "bg-neutral-200" : "bg-stone-100"
   const bgHover = isSub ? "hover:bg-neutral-300" : "hover:bg-gray-200"

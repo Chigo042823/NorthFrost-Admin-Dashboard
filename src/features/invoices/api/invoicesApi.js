@@ -15,6 +15,21 @@ export async function getInvoices(token) {
     return resp.json()
 }
 
+export async function getLastInvoiceNumber(token) {
+    const resp = await fetch(apiURL + "invoices/lastnumber", {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    if (!resp.ok) {
+        const errText = await resp.text();
+        throw new Error(`Error ${resp.status}: ${errText}`);
+    }
+
+    return resp.json()
+}
+
 export async function getInvoice(invoice_id, token) {;
     const resp = await fetch(apiURL + "invoices/" + invoice_id, {
         headers: {

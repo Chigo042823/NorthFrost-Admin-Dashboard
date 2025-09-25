@@ -5,27 +5,39 @@ import { TbCurrencyPeso } from "react-icons/tb"
 import { BsBoxSeam } from "react-icons/bs"
 import { RiShieldUserLine } from "react-icons/ri"
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
+import { VscPreview } from "react-icons/vsc";
+import { FaList } from "react-icons/fa";
 
-import { SideBarLink } from "./NavBarLink"
+import { NavBarLink } from "./NavBarLink"
 import { NavLinkAccordion } from "./NavLinkAccordion"
+import { NavLinkDropdown } from "./NavLinkDropdown"
+import { NavBarDropdownItem } from "./NavBarDropdownItem"
 
 export const Navigations = () => {
 
   return (
     <div className="md:space-y-1 flex gap-x-2 flex-row space-y-0 md:flex-col justify-center md:justify-start h-full">
-        <SideBarLink title={"Dashboard"} Icon={FiHome} href={"/"}/>
-        <SideBarLink title={"Orders"} Icon={BsCardChecklist} href={"/orders"}/>
-        <SideBarLink title={"Finances"} Icon={TbCurrencyPeso} href={"/finances"}/>
+        <NavBarLink title={"Dashboard"} Icon={FiHome} href={"/"}/>
+        <NavBarLink title={"Orders"} Icon={BsCardChecklist} href={"/orders"}/>
+        <NavBarLink title={"Finances"} Icon={TbCurrencyPeso} href={"/finances"}/>
 
-        <NavLinkAccordion title={"Invoices"} Icon={LiaFileInvoiceDollarSolid} href={"invoices"}>
-          <SideBarLink isSub={true} title={"List"} Icon={LiaFileInvoiceDollarSolid} href={"/invoices/list"}/>
-          <SideBarLink isSub={true} title={"Form"} Icon={LiaFileInvoiceDollarSolid} href={"/invoices/form"}/>
-          <SideBarLink isSub={true} title={"Details"} Icon={LiaFileInvoiceDollarSolid} href={"/invoices/details"}/>
-        </NavLinkAccordion>   
+        <div className="hidden md:inline">
+          <NavLinkAccordion title={"Invoices"} Icon={LiaFileInvoiceDollarSolid} href={"invoices"}>
+            <NavBarLink isSub={true} title={"List"} Icon={FaList} href={"/invoices/list"}/>
+            <NavBarLink isSub={true} title={"Form"} Icon={VscPreview} href={"/invoices/form"}/>
+          </NavLinkAccordion> 
+        </div>
+        <div className="md:hidden">
+          <NavLinkDropdown title={"Invoices"} Icon={LiaFileInvoiceDollarSolid} href={"invoices"}>
+            <NavBarDropdownItem isSub={true} title={"List"} Icon={FaList} href={"/invoices/list"}/>
+            <NavBarDropdownItem isSub={true} title={"Form"} Icon={VscPreview} href={"/invoices/form"}/>
+          </NavLinkDropdown> 
+        </div>
+          
 
-        <SideBarLink title={"Inventory"} Icon={BsBoxSeam} href={"/inventory"}/>  
-        <SideBarLink title={"Clients"} Icon={MdOutlinePeopleAlt} href={"/clients"}/>  
-        <SideBarLink title={"Users"} Icon={RiShieldUserLine} href={"/users"}/>  
+        <NavBarLink title={"Inventory"} Icon={BsBoxSeam} href={"/inventory"}/>  
+        <NavBarLink title={"Clients"} Icon={MdOutlinePeopleAlt} href={"/clients"}/>  
+        <NavBarLink title={"Users"} Icon={RiShieldUserLine} href={"/users"}/>  
     </div>
   )
 }

@@ -37,7 +37,7 @@ export const DataTable = ({
                     {table.getHeaderGroups()?.map(group => (
                             <TableRow key={group.id}>
                                 {group.headers.map(header => (
-                                    <TableHead key={header.id} className={header.index == 4 && "w-4"}>
+                                    <TableHead key={header.id} className={header.id == "actions" && "w-2"}>
                                         {flexRender(
                                             header.column.columnDef.header,
                                             header.getContext()

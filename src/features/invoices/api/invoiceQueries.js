@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
-import { addInvoice, deleteInvoice, updateInvoice, getInvoices, getInvoiceOrders } from "./invoicesApi";
+import { addInvoice, deleteInvoice, updateInvoice, getInvoices, getInvoice, getInvoiceOrders, getLastInvoiceNumber } from "./invoicesApi";
 import toast from "react-hot-toast";
 import { useToken } from "@/features/auth/hooks/useToken";
 
@@ -11,11 +11,28 @@ export const useInvoices = () => {
         })
 }
 
+export const useLastInvoiceNumber = () => {
+    const [token, _] = useToken()
+    return useQuery({
+            queryKey: ["invoices"],
+            queryFn: () => getLastInvoiceNumber(token)
+        })
+}
+
 export const useInvoiceOrders = (id) => {
     const [token, _] = useToken()
     return useQuery({
             queryKey: ["invoiceOrders", id],
             queryFn: () => getInvoiceOrders(id, token),
+            enabled: !!id
+        })
+}
+
+export const useInvoice = (id) => {
+    const [token, _] = useToken()
+    return useQuery({
+            queryKey: ["invoice", id],
+            queryFn: () => getInvoice(id, token),
             enabled: !!id
         })
 }

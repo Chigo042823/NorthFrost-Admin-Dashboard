@@ -26,7 +26,7 @@ export const Profile = () => {
   const {data: user = {}, isLoading} = useUser(uid);
 
   return (
-    <div className="md:w-full flex items-center justify-start p-2 md:pb-0 gap-x-2 border-t border-stone-400">
+    <div className="md:w-full flex items-center justify-start p-2 md:pb-0 gap-x-2 text-right md:text-left md:border-t border-stone-400">
 
         {isLoading && "Loading user..."}
         

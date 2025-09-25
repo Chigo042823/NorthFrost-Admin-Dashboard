@@ -1,5 +1,5 @@
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
+import { InvoiceStatusBadge } from "./InvoiceStatusBadge";
 
 export const InvoiceDropdownOrder = ({onClick, order}) => {
     let bg = "";
@@ -33,7 +33,7 @@ export const InvoiceDropdownOrder = ({onClick, order}) => {
                         })}
                     </span>
                 </div>
-                <Badge className={bg + " capitalize"}>{order.status}</Badge>
+                <InvoiceStatusBadge status={order.status} />
             </button>
         </DropdownMenuItem>
     )

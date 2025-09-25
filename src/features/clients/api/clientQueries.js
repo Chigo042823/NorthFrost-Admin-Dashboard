@@ -15,7 +15,8 @@ export const useClient = (id) => {
     const [token, _] = useToken()
     return useQuery({
             queryKey: ["client"],
-            queryFn: () => getClient(id, token)
+            queryFn: () => getClient(id, token),
+            enabled: !!id
         })
 }
 

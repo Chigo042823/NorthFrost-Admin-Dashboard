@@ -17,6 +17,7 @@ import { useDeleteInvoice } from "../api/invoiceQueries"
 
 import { Badge } from "@/components/ui/badge"
 import { useNavigate } from "react-router-dom"
+import { InvoiceStatusBadge } from "../components/InvoiceStatusBadge"
 
 export const useInvoicesColumns = () => { 
     const navigate = useNavigate();
@@ -83,7 +84,7 @@ export const useInvoicesColumns = () => {
             header: "Status",
             cell: ({row}) => {
                 const val = row.original.status;
-                return <Badge>{val}</Badge>
+                return <InvoiceStatusBadge status={val}>{val}</InvoiceStatusBadge>
             }
         },
         {
@@ -99,6 +100,15 @@ export const useInvoicesColumns = () => {
                 return (
                     <div>{fmt}</div>
                 )
+            }
+        },
+        {
+            accessorKey: "invoice_note",
+            header: () => {
+                return <div className="">Note</div>
+            },
+            cell: ({row}) => {
+                return <div className="whitespace">{row.original.invoice_note}</div>
             }
         },
         {

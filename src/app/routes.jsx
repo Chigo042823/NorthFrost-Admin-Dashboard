@@ -8,7 +8,7 @@ import { Orders } from "../features/orders"
 import { Inventory } from "../features/Inventory"
 import { Clients } from "../features/clients"
 import { Users } from "@/features/users"
-import { InvoiceDetailsPage, InvoiceFormPage, InvoiceListPage } from "@/features/invoices"
+import { InvoiceFormPage, InvoiceListPage } from "@/features/invoices"
 
 import {
   BrowserRouter as Router,
@@ -39,7 +39,6 @@ export const AppRoutes = () => {
           <Route path="/invoices">
             <Route path = "list" element={<InvoiceListPage />} />
             <Route path = "form" element={<InvoiceFormPage />} />
-            <Route path = "details" element={<InvoiceDetailsPage />} />
           </Route>
         </Route>
       </Routes>

@@ -22,14 +22,14 @@ export function useLoginUser() {
         onError: (error) => {
             toast.dismiss();
             toast.error("" + error);
-            console.error("Login failed ||", error);
+            console.error("Login failed ||", error.message);
         }
     });
 }
 
 export function useRegisterUser() {
   const navigate = useNavigate();
-  
+
   return useMutation({
     mutationFn: registerUser, // takes user_data
     onMutate: () => {

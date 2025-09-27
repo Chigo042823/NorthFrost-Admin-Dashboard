@@ -22,6 +22,7 @@ export const ClientForm = ({data}) => {
         e.preventDefault();
         let formData = new FormData(e.target);
         const body = Object.fromEntries(formData.entries());
+        console.log(body)
         if (!isInsert) body.client_id = data.client_id;
         saveClientMutation.mutate({data: body})
     }
@@ -71,7 +72,7 @@ export const ClientForm = ({data}) => {
                 Notes
                 </label>
                 <textarea
-                name="note"
+                name="client_note"
                 defaultValue={data ? data.note : ""}
                 rows={3}
                 className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 

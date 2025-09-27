@@ -18,7 +18,6 @@ export const AuthForm = () => {
         e.preventDefault();
         let formData = new FormData(e.target)
         const data = Object.fromEntries(formData.entries())
-        console.log(data.password);
         if (isLogin) {
             loginUser.mutate(data, {
                 onSuccess: () => {

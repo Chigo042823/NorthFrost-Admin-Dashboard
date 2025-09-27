@@ -21,10 +21,13 @@ import { fmtPhp } from "@/shared/utils/currency";
 import { InvoiceStatusBadge } from "./InvoiceStatusBadge";
 import { useInvoiceData } from "../contexts/invoiceDataContext";
 import { invoiceStatuses } from "../constansts/invoiceStatus";
+import { useNavigate } from "react-router-dom";
 
 export const InvoiceForm = () => {
 
     const {state} = useLocation();
+
+    const navigate = useNavigate();
 
     const {data: invoiceOrders, isInvoiceOrdersLoading} = useInvoiceOrders(state ? state.invoice_id : null)
 
@@ -81,13 +84,15 @@ export const InvoiceForm = () => {
     // Mutations
     const addInvoiceMutation = useAddInvoice({
         onSuccess: () => {
-            queryClient.invalidateQueries(["clients"]);
+            queryClient.invalidateQueries(["invoices"]);
+            navigate("../list")
         }
     });
 
     const updateInvoiceMutation = useUpdateInvoice({
         onSuccess: () => {
-            queryClient.invalidateQueries(["clients"]);
+            queryClient.invalidateQueries(["invoices"]);
+            navigate("../list")
         }
     });
 

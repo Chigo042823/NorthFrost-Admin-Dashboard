@@ -116,10 +116,10 @@ export const useClientColumns = () => {
         }
     },
     {
-        accessorKey: "note",
+        accessorKey: "client_note",
         header: "Note",
         cell: ({ row }) => {
-            const note = row.getValue("note")
+            const note = row.getValue("client_note")
             return(
                 <div className="text-wrap">
                     {note}

@@ -135,7 +135,9 @@ export const RevenueGraph = () => {
               </defs>
               </AreaChart>
           </ResponsiveContainer> : 
-          <div className="mx-4 my-2 text-stone-400 text-xl font-semibold flex items-center justify-center">No orders</div>}
+          <div className="mx-4 my-2 text-stone-400 text-xl font-semibold flex items-center justify-center">
+            No paid orders
+            </div>}
       </div>
     </>
   )

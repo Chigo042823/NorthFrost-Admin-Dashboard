@@ -30,7 +30,7 @@ export const AuthForm = () => {
         } else {
             registerUser.mutate(data, {
                 onSuccess: () => {
-                    navigate("/login")
+                    setIsLogin(true);
                 }
             })
         }       

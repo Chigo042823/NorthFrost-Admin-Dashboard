@@ -28,13 +28,22 @@ export function useLoginUser() {
 }
 
 export function useRegisterUser() {
+  const navigate = useNavigate();
+  
   return useMutation({
     mutationFn: registerUser, // takes user_data
+    onMutate: () => {
+            toast.loading("Signing up...");
+        }, 
     onSuccess: (data) => {
-      console.log("Success: " + data);
+        toast.dismiss();
+        toast.success("Signed up successfully!");
+        navigate("/login");
     },
     onError: (error) => {
-      console.error("Login failed:", error);
+        toast.dismiss();
+        toast.error("" + error);
+        console.error("Sign up failed || ", error);
     }
   });
 }

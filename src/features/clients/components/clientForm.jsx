@@ -73,7 +73,7 @@ export const ClientForm = ({data}) => {
                 </label>
                 <textarea
                 name="client_note"
-                defaultValue={data ? data.note : ""}
+                defaultValue={data ? data.client_note : ""}
                 rows={3}
                 className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 
                             focus:ring-2 focus:ring-indigo-500 focus:outline-none"

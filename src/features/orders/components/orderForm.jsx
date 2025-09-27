@@ -139,7 +139,7 @@ export const OrderForm = ({data}) => {
                         className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                         >
                             <option value="pending">Pending</option>
-                            <option value="unpaid">Unpaid</option>
+                            <option value="paid">Paid</option>
                             <option value="delivered">Delivered</option>
                         </select>
                     </div>

@@ -1,7 +1,8 @@
 import { createContext, useContext, useState } from "react"
 
 const InvoiceDataContext = createContext({
-    invoiceData: null
+    invoiceData: null,
+    setInvoiceData: () => {}
 })
 
 export const InvoiceDataProvider = ({children}) => {

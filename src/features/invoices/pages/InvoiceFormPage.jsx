@@ -6,12 +6,16 @@ import { InvoicePreview } from "../components/InvoicePreview";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { PiPrinter } from "react-icons/pi";
 import { generatePdf, printPdf } from "@/shared/utils/pdf";
+import { useInvoiceData } from "../contexts/invoiceDataContext";
 
 export const InvoiceFormPage = () => {
+    const {setInvoiceData} = useInvoiceData(); 
+
     return (
         <MainContainer className={"md:grid md:grid-cols-[2fr_1.7fr]"} noPad>
             <div className="p-4 flex-col items-center">
-                <Link to={"../list"} className="flex items-center space-x-1 text-gray-400">
+                <Link to={"../list"} className="flex items-center space-x-1 text-gray-400" 
+                    onClick={() => setInvoiceData(null)}>
                     <FaArrowLeftLong /> <p className="font-semibold">Invoices</p>
                 </Link>
                 <div className="rounded-lg p-2">

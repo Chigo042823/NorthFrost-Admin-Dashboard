@@ -14,7 +14,7 @@ export const InvoicePreview = () => {
 
     const {data: invoice = {}} = useInvoice(state ? state.invoice_id : null);
 
-    const {data: client = {}} = useClient(invoiceData.client_id);
+    const {data: client = {}} = useClient(invoiceData ? invoiceData.client_id : null);
 
     return (
         <div className="p-4 bg-white h-full mx-auto" id="invoicePreview">
@@ -28,16 +28,16 @@ export const InvoicePreview = () => {
             <div className="flex justify-between p-4 pt-6 pb-8 
             text-stone-500 font-semibold text-xs border-b border-stone-300">
                 <div className="">
-                    <p className="text-stone-800 mb-3 text-sm">Recipient</p>
+                    <p className="text-stone-800 mb-2 text-sm">Recipient</p>
                     <p className="">{client.name}</p>
-                    <p className="mb-2">{client.address}</p>
+                    <p className="">{client.address}</p>
                     <p>{client.contact_info}</p>
                 </div>
                 <div className="text-right">
                     <p className="text-sm text-stone-800">Issue Date</p>
-                    <p className="mb-6">{invoice.issue_date ? new Date(invoice.issue_date).toDateString() : ""}</p>
+                    <p className="mb-6">{invoice.issue_date ? new Date(invoice.issue_date).toDateString() : new Date().toDateString()}</p>
                     <p className="text-sm text-stone-800">Due Date</p>
-                    <p>{invoice.due_date ? new Date(invoiceData.due_date).toDateString() : ""}</p>
+                    <p>{invoiceData ? invoiceData.due_date ? new Date(invoiceData.due_date).toDateString() : "" : ""}</p>
                 </div>
             </div>
             <Table className="w-full mt-4">
@@ -51,7 +51,7 @@ export const InvoicePreview = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody className="text-sm text-stone-700 text-center">
-                    {invoiceData.items && invoiceData.items.map(item => {
+                    {invoiceData && invoiceData.items && invoiceData.items.map(item => {
                         return <TableRow key={item.order_id}>
                             <TableCell className="text-left">Purified Ice Cubes</TableCell>
                             <TableCell>{item.quantity}</TableCell>
@@ -66,10 +66,10 @@ export const InvoicePreview = () => {
             mt-4 pl-2 pr-4
             text-stone-800 font-semibold">
                 <p>Amount Due</p>
-                <p>{fmtPhp(invoiceData.amtDue)}</p>
+                <p>{fmtPhp(invoiceData ? invoiceData.amtDue : 0)}</p>
             </div>
             <div className="p-2 mt-8 rounded-lg border-stone-200 border">
-                <p className="text-sm text-stone-600">Note: {invoiceData.invoice_note}</p>
+                <p className="text-sm text-stone-600">Note: {invoiceData ? invoiceData.invoice_note : ""}</p>
             </div>
         </div>
     )

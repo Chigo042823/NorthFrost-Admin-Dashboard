@@ -17,6 +17,8 @@ export function OrdersTable() {
     const {data: orders = [], isLoading} = useOrders();
 
     const [globalFilter, setGlobalFilter] = useState([]);
+    
+    const [columnFilters, setColumnFilter] = useState([]);
 
     const [columnVisibility, setColumnVisibility] = useState({
         id: false,
@@ -34,6 +36,7 @@ export function OrdersTable() {
             <TableToolbar 
                 name={"order"} 
                 setGlobalFilter={setGlobalFilter} 
+                setColumnFilter={setColumnFilter}
                 globalFilter={globalFilter}
                 willInsert={true}
             />            
@@ -44,6 +47,8 @@ export function OrdersTable() {
                 setSorting={setSorting}
                 globalFilter={globalFilter}
                 setGlobalFilter={setGlobalFilter}
+                columnFilters={columnFilters}
+                setColumnFilters={setColumnFilter}
                 columnVisibility={columnVisibility}
                 setColumnVisibility={setColumnVisibility}
             />

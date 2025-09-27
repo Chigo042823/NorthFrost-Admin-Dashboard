@@ -20,7 +20,7 @@ const colors = {
 }
 
 export const StatsCard = ({title, value, lastValue, Icon, color, isCurrency, href}) => {
-    let percentage = ((value-lastValue)/value) * 100;
+    let percentage = value != 0 ? ((value - lastValue) / value) * 100 : -lastValue * 100;
     return (
         <a href={href} className="rounded-lg bg-white border border-stone-300 p-3 shadow space-y-1 
           hover:bg-gray-100 hover:scale-105 hover:z-10 transition-all duration-300 ease-in-out">
@@ -49,7 +49,7 @@ export const StatsCard = ({title, value, lastValue, Icon, color, isCurrency, hre
 
 export const StatsCardSection = ({children}) => {
   return (
-    <div className="p-4 grid grid-cols-[repeat(auto-fill,_minmax(300px,1fr))] gap-3">
+    <div className="p-4 pt-1 grid grid-cols-[repeat(auto-fill,_minmax(300px,1fr))] gap-3">
       {children}
     </div>
   )

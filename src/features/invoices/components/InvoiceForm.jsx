@@ -3,7 +3,7 @@ import Select from "react-select";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { useClientOrders, useClients } from "@/features/clients/api/clientQueries";
-import { useAddInvoice, useInvoiceOrders, useLastInvoiceNumber, useUpdateInvoice } from "../api/invoiceQueries";
+import { useAddInvoice, useInvoiceOrders, useUpdateInvoice } from "../api/invoiceQueries";
 
 import {
   DropdownMenu,
@@ -14,10 +14,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { Badge } from "@/components/ui/badge"
 import { InvoiceItem } from "./InvoiceItem";
 import { InvoiceDropdownOrder } from "./InvoiceDropdownOrder";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { fmtPhp } from "@/shared/utils/currency";
 import { InvoiceStatusBadge } from "./InvoiceStatusBadge";
 import { useInvoiceData } from "../contexts/invoiceDataContext";
@@ -47,7 +46,7 @@ export const InvoiceForm = () => {
             setInvoiceData(prev => ({
                 ...prev,
                 client_id: state.client_id,
-                due_date: state.due_date?.slice(0, 10) || "", // ensure YYYY-MM-DD
+                due_date: state.due_date?.slice(0, 10) || "", 
                 invoice_note: state.invoice_note || "",
                 items: state.items || [],
                 status: state.status || "pending",
@@ -129,7 +128,7 @@ export const InvoiceForm = () => {
                             <InvoiceStatusBadge status={status}/>    
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            {invoiceStatuses.map(status => {
+                            {invoiceStatuses.filter(stat => stat != status).map(status => {
                                 return <DropdownMenuItem key={status} onClick={() => setStatus(status)}>
                                         <InvoiceStatusBadge status={status}/>  
                                     </DropdownMenuItem>
@@ -140,7 +139,7 @@ export const InvoiceForm = () => {
                 }       
             </div>
             <input type="hidden" name="client_id" id="client_id"
-                defaultValue={state ? state.client_id : ""}/>
+                defaultValue={state ? state.client_id : null}/>
             <div className="space-y-2 p-0.5 mt-1">
                 <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -154,6 +153,7 @@ export const InvoiceForm = () => {
                             onChange={e => {
                                 setCurrClient(e);
                                 setItems([]);
+                                console.log(e.value)
                                 document.getElementById("client_id").value = e.value
                                 setInvoiceData(prev => ({ ...prev, client_id: e.value }));
                             }}
@@ -167,7 +167,7 @@ export const InvoiceForm = () => {
                         <input
                         type="date"
                         name="due_date"
-                        value={invoiceData.due_date || ""}
+                        value={invoiceData ? invoiceData.due_date : ""}
                         onChange={e => setInvoiceData(prev => ({ ...prev, due_date: e.target.value }))}
                         className="mt-1 w-full border rounded-md px-3 py-1.5 text-stone-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                         />
@@ -179,7 +179,7 @@ export const InvoiceForm = () => {
                     </label>
                     <textarea
                     name="invoice_note"
-                    value={invoiceData.invoice_note || ""}
+                    value={invoiceData ? invoiceData.invoice_note : ""}
                     onChange={e => setInvoiceData(prev => ({ ...prev, invoice_note: e.target.value }))}
                     rows={2}
                     className="mt-1 w-full border rounded-md px-3 py-2 text-stone-700 

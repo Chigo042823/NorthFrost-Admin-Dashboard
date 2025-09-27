@@ -10,6 +10,8 @@ export const DataTable = ({
     setSorting, 
     globalFilter,
     setGlobalFilter,
+    columnFilters, 
+    setColumnFilter,
     columnVisibility, 
     setColumnVisibility
 }) => {
@@ -21,13 +23,15 @@ export const DataTable = ({
         getSortedRowModel: getSortedRowModel(),
         onSortingChange: setSorting,
         onGlobalFilterChange: setGlobalFilter,
+        onColumnFiltersChange: setColumnFilter,
         getFilteredRowModel: getFilteredRowModel(),
         globalFilterFn: 'includesString',
         onColumnVisibilityChange: setColumnVisibility,
         state: {
             sorting,
             globalFilter,
-            columnVisibility
+            columnVisibility,
+            columnFilters
         }
     });
 
@@ -48,18 +52,31 @@ export const DataTable = ({
                         ))}
                 </TableHeader>
                 <TableBody>
-                    {table.getRowModel().rows.map(row => (
-                        <TableRow key={row.id}>
-                            {row.getVisibleCells().map(cell => (
-                                <TableCell className={`${cell.id == "actions" && "w-4"} whitespace-normal`} key={cell.id}>
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext()
-                                        )}
-                                </TableCell>
-                            ))}
+                    {
+                        table.getRowModel().rows.length != 0 ? table.getRowModel().rows.map(row => (
+                            <TableRow key={row.id}>
+                                {row.getVisibleCells().map(cell => (
+                                    <TableCell className={`${cell.id == "actions" && "w-4"} whitespace-normal`} key={cell.id}>
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext()
+                                            )}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        )) :
+                        <TableRow>
+                            <TableCell
+                            colSpan={columns.length}
+                            className="h-24 text-center text-stone-500 text-lg font-semibold"
+                            >
+                                <div 
+                                    className="text-stone-400 text-lg text-semibold">
+                                    No data available
+                                </div>
+                            </TableCell>
                         </TableRow>
-                    ))}
+                    }
                 </TableBody>
             </Table>
     )

@@ -128,11 +128,26 @@ export const useOrderColumns = () => {
                         <p className="text-stone-500 text-xs">{date.toLocaleDateString("en-PH")}</p>
                     </div>
                 )
+            },
+            filterFn: (row, columnId, filterValue) => {
+                if (!filterValue) return true;
+                const date = new Date(row.getValue(columnId));
+                const month = date.getMonth() + 1; 
+                const year = date.getFullYear();
+                return (
+                    month === filterValue.month &&
+                    year === filterValue.year
+                );
             }
         },
         {
             accessorKey: "status",
-            header: "Status"
+            header: "Status",
+            cell: ({row}) => {
+                return (
+                    <div className="capitalize">{row.original.status}</div>
+                )
+            }
         },
         {
             accessorKey: "order_note",
